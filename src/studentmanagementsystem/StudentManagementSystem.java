@@ -21,11 +21,8 @@ public class StudentManagementSystem {
      */
     private static ArrayList<Faculty> faculty = new ArrayList<>();
     private static ArrayList<Major> major = new ArrayList<>();
-    private static ArrayList<Course> course = new ArrayList<>();
-    private static ArrayList<Student> students = new ArrayList<>();
-    private static ArrayList<Teacher> teachers = new ArrayList<>();
-    private static ArrayList<Student> studentAttendance = new ArrayList<>();  
-    
+    private static ArrayList<Course> course = new ArrayList<>();    
+    private static ArrayList<Teacher> teachers = new ArrayList<>();        
     
     public static void main(String[] args) {
         
@@ -35,22 +32,14 @@ public class StudentManagementSystem {
         major = Utilities.majorInfo(); 
         course = Utilities.courseInfo();
         Scanner scan = new Scanner(System.in);
-        String input = "";
-        //Setting up a try catch for the text files
-        try
-        {
-            Utilities.teacherReadFile(teachers);
-            Utilities.studentReadFile(students);
-            Utilities.readStudentAttendanceFile(studentAttendance);
-        }
-        catch (IOException e)
-        {
-            System.out.println("Files not Found");
-        }               
+        String input = "";        
+          
+               
         StudentsDB sDB = new StudentsDB();
-        sDB.createStudentsTable(students, studentAttendance);
+        sDB.createStudentsTable();        
         managementSystemInterface mSI = new managementSystemInterface();
-        mSI.show();    
+        mSI.show();
+        
     }
     
 }

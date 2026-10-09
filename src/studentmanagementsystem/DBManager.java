@@ -18,18 +18,13 @@ public class DBManager {
     
     private static final String USER_NAME = "pdc";
     private static final String PASSWORD = "pdc"; 
-    private static final String URL = "jdbc:derby://localhost:1527/StudentManagementSystemDB; create = true";
+    private static final String URL = "jdbc:derby:StudentManagementSystemDB;create = true";
     
     Connection conn;
     
     public DBManager() {
         establishConnection();
-    }
-
-    public static void main(String[] args) {
-        DBManager dbManager = new DBManager();
-        System.out.println(dbManager.getConnection());
-    }
+    }   
 
     public Connection getConnection() {
         return this.conn;

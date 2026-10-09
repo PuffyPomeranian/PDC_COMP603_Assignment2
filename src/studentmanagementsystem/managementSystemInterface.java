@@ -4,11 +4,22 @@
  */
 package studentmanagementsystem;
 
+import java.sql.ResultSet;
+import java.sql.Connection;
+import java.sql.Statement;
+import java.sql.SQLException;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Playtech
  */
 public class managementSystemInterface extends javax.swing.JFrame {
+    
+    Connection conn;
+    ResultSet rs;
+    Statement statement;
+    
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(managementSystemInterface.class.getName());
 
@@ -17,6 +28,9 @@ public class managementSystemInterface extends javax.swing.JFrame {
      */
     public managementSystemInterface() {
         initComponents();
+        DBManager dbManager = new DBManager();
+        conn = dbManager.getConnection();
+        
     }
 
     /**
@@ -28,16 +42,19 @@ public class managementSystemInterface extends javax.swing.JFrame {
 
         studentList = new javax.swing.JFrame();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        studentTable = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
+        viewStudentGrades = new javax.swing.JButton();
+        showStudents = new javax.swing.JButton();
+        managementSystemWelcome = new javax.swing.JLabel();
 
-        studentList.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         studentList.setTitle("Student Table");
         studentList.setAlwaysOnTop(true);
+        studentList.setMinimumSize(new java.awt.Dimension(678, 420));
+        studentList.setPreferredSize(new java.awt.Dimension(639, 280));
         studentList.setResizable(false);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        studentTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -51,12 +68,28 @@ public class managementSystemInterface extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(studentTable);
+
+        jLabel1.setText("Current Students Enrolled in Classes at AUT");
+
+        viewStudentGrades.setText("View Grades");
+        viewStudentGrades.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                viewStudentGradesMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout studentListLayout = new javax.swing.GroupLayout(studentList.getContentPane());
         studentList.getContentPane().setLayout(studentListLayout);
@@ -64,11 +97,25 @@ public class managementSystemInterface extends javax.swing.JFrame {
             studentListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(studentListLayout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 81, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(viewStudentGrades)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(studentListLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         studentListLayout.setVerticalGroup(
             studentListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
+            .addGroup(studentListLayout.createSequentialGroup()
+                .addGroup(studentListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(studentListLayout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(viewStudentGrades)))
+                .addGap(26, 26, 26)
+                .addComponent(jLabel1)
+                .addGap(0, 28, Short.MAX_VALUE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -78,15 +125,15 @@ public class managementSystemInterface extends javax.swing.JFrame {
         setName("form1"); // NOI18N
         setResizable(false);
 
-        jButton1.setText("Show Students");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        showStudents.setText("Show Students");
+        showStudents.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+                showStudentsMouseClicked(evt);
             }
         });
-        jButton1.addActionListener(this::jButton1ActionPerformed);
+        showStudents.addActionListener(this::showStudentsActionPerformed);
 
-        jLabel1.setText("Welcome to the AUT Student Management System!");
+        managementSystemWelcome.setText("Welcome to the AUT Student Management System!");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -95,32 +142,118 @@ public class managementSystemInterface extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
-                    .addComponent(jLabel1))
+                    .addComponent(showStudents)
+                    .addComponent(managementSystemWelcome))
                 .addContainerGap(75, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addComponent(jLabel1)
+                .addComponent(managementSystemWelcome)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
+                .addComponent(showStudents)
                 .addContainerGap(155, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+    private void showStudentsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showStudentsMouseClicked
         // TODO add your handling code here:
-        studentList.show();
-        
-    }//GEN-LAST:event_jButton1MouseClicked
+        studentList.show();      
+        DefaultTableModel model = (DefaultTableModel) studentTable.getModel();
+        model.setRowCount(0);
+        try
+        {
+            statement = conn.createStatement();
+            rs = statement.executeQuery("SELECT * FROM STUDENT");
+            while(rs.next())
+            {
+                model.addRow(new Object[] {rs.getInt("ID"), rs.getString("FIRST_NAME"), rs.getString("LAST_NAME"), rs.getString("COURSE_UNDERTAKING"), rs.getString("MARKS"), rs.getString("ATTENDANCE")});
+            }
+        }
+        catch(SQLException e)
+        {
+            System.out.println("Data not found...");
+        }
+                                                       
+    }//GEN-LAST:event_showStudentsMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void showStudentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showStudentsActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_showStudentsActionPerformed
+
+    private void viewStudentGradesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewStudentGradesMouseClicked
+        // TODO add your handling code here:
+        int grade = 0;
+        String overallGrade = "FAIL";
+        DefaultTableModel model = (DefaultTableModel) studentTable.getModel();
+        model.setRowCount(0);
+        try
+        {
+            statement = conn.createStatement();
+            rs = statement.executeQuery("SELECT * FROM STUDENT");
+            int total = 0;
+            while(rs.next())
+            {
+                String[] grades = rs.getString("MARKS").split(", ");
+                for(int i = 0; i < grades.length; i++)
+                {
+                    total = Integer.parseInt(grades[i]) + total;
+                }
+                System.out.println(total);
+                grade = total;  
+                if(grade > 89)
+                {
+                    overallGrade = "A+";
+                }
+                else if(grade < 90 && grade > 84)
+                {
+                    overallGrade = "A";
+                }
+                else if(grade < 85 && grade > 79)
+                {
+                    overallGrade = "A-";
+                }
+                else if(grade < 80 && grade > 74)
+                {
+                    overallGrade = "B+";
+                }
+                else if(grade < 75 && grade > 69)
+                {
+                    overallGrade = "B";
+                }
+                else if(grade < 70 && grade > 64)
+                {
+                    overallGrade = "B-";
+                }
+                else if(grade < 65 && grade > 59)
+                {
+                    overallGrade = "C+";
+                }
+                else if(grade < 60 && grade > 54)
+                {
+                    overallGrade = "C";
+                }
+                else if(grade < 55 && grade > 49)
+                {
+                    overallGrade = "C-";
+                }
+                else if(grade < 50)
+                {
+                    overallGrade = "FAIL";
+                } 
+                total = 0;
+                
+                model.addRow(new Object[] {rs.getInt("ID"), rs.getString("FIRST_NAME"), rs.getString("LAST_NAME"), rs.getString("COURSE_UNDERTAKING"), overallGrade, rs.getString("ATTENDANCE")});
+            }                       
+        }
+        catch(SQLException e)
+        {
+            System.out.println("Data not found...");
+        }
+    }//GEN-LAST:event_viewStudentGradesMouseClicked
 
     /**
      * @param args the command line arguments
@@ -148,10 +281,12 @@ public class managementSystemInterface extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JLabel managementSystemWelcome;
+    private javax.swing.JButton showStudents;
     private javax.swing.JFrame studentList;
+    private javax.swing.JTable studentTable;
+    private javax.swing.JButton viewStudentGrades;
     // End of variables declaration//GEN-END:variables
 }
