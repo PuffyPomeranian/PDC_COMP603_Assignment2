@@ -1,0 +1,13 @@
+10,Michael,Brown,0,BUSS512
+20,Sophia,Green,1,BUSS514
+30,Ethan,White,2,ACCT703
+40,Emma,Clark,1,COMP500
+50,Liam,Harris,0,COMP503
+60,Emilia,Black,0,DESN511
+70,Clark,Gables,0,COMP501
+80,Samantha,Brackson,1,COMP503
+90,Peter,Cleric,2,DESN711
+100,Levi,Lemon,1,DIGD511
+110,Jack,Johnson,1,DIGD511
+120,Samantha,Hayes,0,COMP501
+130,Jenny,Keyes,1,COMP503
