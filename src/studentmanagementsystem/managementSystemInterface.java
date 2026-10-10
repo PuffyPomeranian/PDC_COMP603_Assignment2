@@ -31,6 +31,12 @@ public class managementSystemInterface extends javax.swing.JFrame {
         initComponents();
         DBManager dbManager = new DBManager();
         conn = dbManager.getConnection();
+        this.setLocationRelativeTo(null);
+        addStudentFrame.setLocationRelativeTo(null);
+        studentList.setLocationRelativeTo(null);
+        editStudentFrame.setLocationRelativeTo(null);
+        removeStudentFrame.setLocationRelativeTo(null);
+        
         
     }
 
@@ -64,8 +70,8 @@ public class managementSystemInterface extends javax.swing.JFrame {
         editMark4 = new javax.swing.JTextField();
         editMark4Label = new javax.swing.JLabel();
         applyEditButton = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        closeEditStudentsButton = new javax.swing.JButton();
+        searchStudentsButton = new javax.swing.JButton();
         mark1Label = new javax.swing.JLabel();
         mark2Label = new javax.swing.JLabel();
         mark3Label = new javax.swing.JLabel();
@@ -82,11 +88,22 @@ public class managementSystemInterface extends javax.swing.JFrame {
         courseSelectLabel = new javax.swing.JLabel();
         addStudentApplyButton = new javax.swing.JButton();
         addStudentCloseButton = new javax.swing.JButton();
+        removeStudentFrame = new javax.swing.JFrame();
+        removeStudentWelcomeLabel = new javax.swing.JLabel();
+        removeStudentWelcomeLabel02 = new javax.swing.JLabel();
+        enterIDRemoveLabel = new javax.swing.JLabel();
+        idEnterRemoveBox = new javax.swing.JTextField();
+        studentSearchRemoveButton = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        removeStudentTable = new javax.swing.JTable();
+        studentApplyRemoveButton = new javax.swing.JButton();
+        studentRemoveCloseButton = new javax.swing.JButton();
         showStudents = new javax.swing.JButton();
         managementSystemWelcome = new javax.swing.JLabel();
         editStudentButton = new javax.swing.JButton();
         welcomeLable = new javax.swing.JLabel();
         addStudentButton = new javax.swing.JButton();
+        removeStudentButton = new javax.swing.JButton();
 
         studentList.setTitle("Student Table");
         studentList.setAlwaysOnTop(true);
@@ -177,6 +194,7 @@ public class managementSystemInterface extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
+        editStudentFrame.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         editStudentFrame.setTitle("Edit Student Marks/Attendance");
         editStudentFrame.setMinimumSize(new java.awt.Dimension(510, 355));
         editStudentFrame.setResizable(false);
@@ -238,13 +256,18 @@ public class managementSystemInterface extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Close");
-        jButton1.addActionListener(this::jButton1ActionPerformed);
-
-        jButton2.setText("Search");
-        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+        closeEditStudentsButton.setText("Close");
+        closeEditStudentsButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton2MouseClicked(evt);
+                closeEditStudentsButtonMouseClicked(evt);
+            }
+        });
+        closeEditStudentsButton.addActionListener(this::closeEditStudentsButtonActionPerformed);
+
+        searchStudentsButton.setText("Search");
+        searchStudentsButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                searchStudentsButtonMouseClicked(evt);
             }
         });
 
@@ -258,7 +281,7 @@ public class managementSystemInterface extends javax.swing.JFrame {
                     .addGroup(editStudentFrameLayout.createSequentialGroup()
                         .addComponent(enterStudentID, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton2))
+                        .addComponent(searchStudentsButton))
                     .addComponent(editStudentInfoLabel)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 479, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(editStudentFrameLayout.createSequentialGroup()
@@ -289,7 +312,7 @@ public class managementSystemInterface extends javax.swing.JFrame {
                                     .addGroup(editStudentFrameLayout.createSequentialGroup()
                                         .addGap(0, 0, Short.MAX_VALUE)
                                         .addGroup(editStudentFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(closeEditStudentsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addGroup(editStudentFrameLayout.createSequentialGroup()
                                                 .addComponent(editAttendanceLabel)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -307,7 +330,7 @@ public class managementSystemInterface extends javax.swing.JFrame {
                         .addGap(2, 2, 2)
                         .addGroup(editStudentFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(enterStudentID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(searchStudentsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -327,7 +350,7 @@ public class managementSystemInterface extends javax.swing.JFrame {
                 .addGroup(editStudentFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(editStudentFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(editMark3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton1)
+                        .addComponent(closeEditStudentsButton)
                         .addComponent(mark3Label))
                     .addComponent(editMark3Label))
                 .addGap(18, 18, 18)
@@ -379,7 +402,109 @@ public class managementSystemInterface extends javax.swing.JFrame {
         addStudentFrame.getContentPane().add(addStudentApplyButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 199, 112, -1));
 
         addStudentCloseButton.setText("Close");
+        addStudentCloseButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addStudentCloseButtonMouseClicked(evt);
+            }
+        });
         addStudentFrame.getContentPane().add(addStudentCloseButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 228, 112, -1));
+
+        removeStudentFrame.setTitle("Remove Student");
+        removeStudentFrame.setAlwaysOnTop(true);
+        removeStudentFrame.setMinimumSize(new java.awt.Dimension(455, 273));
+
+        removeStudentWelcomeLabel.setText("Welcome to the Remove Student Window! Please start by entering the ID");
+
+        removeStudentWelcomeLabel02.setText("of the Student you wish to remove.");
+
+        enterIDRemoveLabel.setText("Enter ID:");
+
+        studentSearchRemoveButton.setText("Search");
+        studentSearchRemoveButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                studentSearchRemoveButtonMouseClicked(evt);
+            }
+        });
+
+        removeStudentTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null}
+            },
+            new String [] {
+                "ID", "First Name", "Last Name"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(removeStudentTable);
+        if (removeStudentTable.getColumnModel().getColumnCount() > 0) {
+            removeStudentTable.getColumnModel().getColumn(0).setPreferredWidth(50);
+        }
+
+        studentApplyRemoveButton.setText("Remove");
+
+        studentRemoveCloseButton.setText("Close");
+
+        javax.swing.GroupLayout removeStudentFrameLayout = new javax.swing.GroupLayout(removeStudentFrame.getContentPane());
+        removeStudentFrame.getContentPane().setLayout(removeStudentFrameLayout);
+        removeStudentFrameLayout.setHorizontalGroup(
+            removeStudentFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(removeStudentFrameLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(removeStudentFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(removeStudentFrameLayout.createSequentialGroup()
+                        .addGroup(removeStudentFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(removeStudentWelcomeLabel)
+                            .addComponent(removeStudentWelcomeLabel02)
+                            .addGroup(removeStudentFrameLayout.createSequentialGroup()
+                                .addComponent(enterIDRemoveLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(idEnterRemoveBox, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(studentSearchRemoveButton)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, removeStudentFrameLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(removeStudentFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, removeStudentFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(studentApplyRemoveButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(studentRemoveCloseButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 418, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
+        );
+        removeStudentFrameLayout.setVerticalGroup(
+            removeStudentFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(removeStudentFrameLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(removeStudentWelcomeLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(removeStudentWelcomeLabel02)
+                .addGap(18, 18, 18)
+                .addGroup(removeStudentFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(enterIDRemoveLabel)
+                    .addComponent(idEnterRemoveBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(studentSearchRemoveButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(studentApplyRemoveButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(studentRemoveCloseButton)
+                .addContainerGap(20, Short.MAX_VALUE))
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("AUT Student Management System");
@@ -414,6 +539,13 @@ public class managementSystemInterface extends javax.swing.JFrame {
             }
         });
 
+        removeStudentButton.setText("Remove Student");
+        removeStudentButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                removeStudentButtonMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -424,6 +556,7 @@ public class managementSystemInterface extends javax.swing.JFrame {
                     .addComponent(managementSystemWelcome)
                     .addComponent(welcomeLable)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(removeStudentButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(addStudentButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(editStudentButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(showStudents, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -442,7 +575,9 @@ public class managementSystemInterface extends javax.swing.JFrame {
                 .addComponent(editStudentButton)
                 .addGap(18, 18, 18)
                 .addComponent(addStudentButton)
-                .addContainerGap(79, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(removeStudentButton)
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         pack();
@@ -577,7 +712,7 @@ public class managementSystemInterface extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_editMark2ActionPerformed
 
-    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+    private void searchStudentsButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchStudentsButtonMouseClicked
         // TODO add your handling code here:  
         int count = 0;
         if(!enterStudentID.getText().matches("[0-9]+"))
@@ -654,7 +789,7 @@ public class managementSystemInterface extends javax.swing.JFrame {
         }
         
         
-    }//GEN-LAST:event_jButton2MouseClicked
+    }//GEN-LAST:event_searchStudentsButtonMouseClicked
 
     private void applyEditButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_applyEditButtonMouseClicked
         // TODO add your handling code here:
@@ -754,9 +889,9 @@ public class managementSystemInterface extends javax.swing.JFrame {
         
     }//GEN-LAST:event_applyEditButtonMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void closeEditStudentsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeEditStudentsButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_closeEditStudentsButtonActionPerformed
 
     private void addStudentButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addStudentButtonMouseClicked
         // TODO add your handling code here:
@@ -788,6 +923,8 @@ public class managementSystemInterface extends javax.swing.JFrame {
         // TODO add your handling code here:
         int count = 1;
         int id = 0;
+        //This block of code from here to past the try/catch applies the first name, last name entered
+        //and the randomly generated id to send it through to the StudentsDB class
         String firstName = firstNameBox.getText();
         String lastName = lastNameBox.getText();
         try
@@ -814,10 +951,11 @@ public class managementSystemInterface extends javax.swing.JFrame {
         {
             return;
         }
-        
+        //This takes the course thep person selected and pushes it through the StudentsDB class
         String course = courseSelectorCBox.getSelectedItem().toString();
-        System.out.println(course);
+        //System.out.println(course);
         
+        //And here is where that push to the StudentsDB class happens
         StudentsDB db = new StudentsDB();
         db.addStudent(id, firstName, lastName, course);
     }//GEN-LAST:event_addStudentApplyButtonMouseClicked
@@ -825,6 +963,81 @@ public class managementSystemInterface extends javax.swing.JFrame {
     private void lastNameBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lastNameBoxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_lastNameBoxActionPerformed
+
+    private void closeEditStudentsButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeEditStudentsButtonMouseClicked
+        // TODO add your handling code here:
+        editStudentFrame.hide();
+        enterStudentID.setText("");
+        editMark1.setText("");
+        editMark2.setText("");
+        editMark3.setText("");
+        editMark4.setText("");
+        editAttendance.setText("");
+        DefaultTableModel model = (DefaultTableModel) editStudentTable.getModel();
+        model.setRowCount(0);
+    }//GEN-LAST:event_closeEditStudentsButtonMouseClicked
+
+    private void addStudentCloseButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addStudentCloseButtonMouseClicked
+        // TODO add your handling code here:
+        //Hides the add Student Frame and clears the boxes 
+        addStudentFrame.hide();        
+        firstNameBox.setText("");
+        lastNameBox.setText("");
+        courseSelectorCBox.setSelectedIndex(0);
+    }//GEN-LAST:event_addStudentCloseButtonMouseClicked
+
+    private void removeStudentButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_removeStudentButtonMouseClicked
+        // TODO add your handling code here:
+        removeStudentFrame.show();
+    }//GEN-LAST:event_removeStudentButtonMouseClicked
+
+    private void studentSearchRemoveButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_studentSearchRemoveButtonMouseClicked
+        // TODO add your handling code here:
+        int count = 0;
+        if(!idEnterRemoveBox.getText().matches("[0-9]+"))
+        {
+            return;
+        }
+        try
+        {
+            statement = conn.createStatement();
+            rs = statement.executeQuery("SELECT ID FROM STUDENT");
+            while(rs.next())
+            {
+                count++;
+            }
+            if(Integer.parseInt(idEnterRemoveBox.getText()) > count)
+            {
+                return;
+            }
+            
+        }
+        catch(SQLException e)
+        {
+            System.out.println("Error");
+        }       
+        
+        try
+        {            
+            rs = statement.executeQuery("SELECT * FROM STUDENT");
+            while(rs.next())
+            {
+                if(rs.getInt("ID") == Integer.parseInt(idEnterRemoveBox.getText()))
+                {                                     
+                    DefaultTableModel model = (DefaultTableModel) removeStudentTable.getModel();
+                    model.setRowCount(0);
+                    model.addRow(new Object[] {rs.getInt("ID"), rs.getString("FIRST_NAME"), rs.getString("LAST_NAME")});
+                }
+            }
+                
+        }
+        catch(SQLException e)
+        {
+                
+        }
+           
+        
+    }//GEN-LAST:event_studentSearchRemoveButtonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -857,6 +1070,7 @@ public class managementSystemInterface extends javax.swing.JFrame {
     private javax.swing.JButton addStudentCloseButton;
     private javax.swing.JFrame addStudentFrame;
     private javax.swing.JButton applyEditButton;
+    private javax.swing.JButton closeEditStudentsButton;
     private javax.swing.JButton closeStudentList;
     private javax.swing.JLabel courseSelectLabel;
     private javax.swing.JComboBox<String> courseSelectorCBox;
@@ -874,13 +1088,14 @@ public class managementSystemInterface extends javax.swing.JFrame {
     private javax.swing.JFrame editStudentFrame;
     private javax.swing.JLabel editStudentInfoLabel;
     private javax.swing.JTable editStudentTable;
+    private javax.swing.JLabel enterIDRemoveLabel;
     private javax.swing.JTextField enterStudentID;
     private javax.swing.JTextField firstNameBox;
     private javax.swing.JLabel firstNameLabel;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JTextField idEnterRemoveBox;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextField lastNameBox;
     private javax.swing.JLabel lastNameLabel;
     private javax.swing.JLabel managementSystemWelcome;
@@ -888,10 +1103,19 @@ public class managementSystemInterface extends javax.swing.JFrame {
     private javax.swing.JLabel mark2Label;
     private javax.swing.JLabel mark3Label;
     private javax.swing.JLabel mark4Label;
+    private javax.swing.JButton removeStudentButton;
+    private javax.swing.JFrame removeStudentFrame;
+    private javax.swing.JTable removeStudentTable;
+    private javax.swing.JLabel removeStudentWelcomeLabel;
+    private javax.swing.JLabel removeStudentWelcomeLabel02;
+    private javax.swing.JButton searchStudentsButton;
     private javax.swing.JButton showStudents;
+    private javax.swing.JButton studentApplyRemoveButton;
     private javax.swing.JLabel studentIDLabel;
     private javax.swing.JFrame studentList;
     private javax.swing.JLabel studentListInfo;
+    private javax.swing.JButton studentRemoveCloseButton;
+    private javax.swing.JButton studentSearchRemoveButton;
     private javax.swing.JTable studentTable;
     private javax.swing.JButton viewMarks;
     private javax.swing.JButton viewStudentGrades;
