@@ -43,10 +43,31 @@ public class managementSystemInterface extends javax.swing.JFrame {
         studentList = new javax.swing.JFrame();
         jScrollPane1 = new javax.swing.JScrollPane();
         studentTable = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
+        studentListInfo = new javax.swing.JLabel();
         viewStudentGrades = new javax.swing.JButton();
+        viewMarks = new javax.swing.JButton();
+        closeStudentList = new javax.swing.JButton();
+        editStudentFrame = new javax.swing.JFrame();
+        enterStudentID = new javax.swing.JTextField();
+        editStudentInfoLabel = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        editStudentTable = new javax.swing.JTable();
+        editMark1 = new javax.swing.JTextField();
+        editMark2 = new javax.swing.JTextField();
+        editMark3 = new javax.swing.JTextField();
+        editAttendance = new javax.swing.JTextField();
+        editAttendanceLabel = new javax.swing.JLabel();
+        editMark1Label = new javax.swing.JLabel();
+        editMark2Label = new javax.swing.JLabel();
+        editMark3Label = new javax.swing.JLabel();
+        editMark4 = new javax.swing.JTextField();
+        editMark4Label = new javax.swing.JLabel();
+        applyEditButton = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         showStudents = new javax.swing.JButton();
         managementSystemWelcome = new javax.swing.JLabel();
+        editStudentButton = new javax.swing.JButton();
 
         studentList.setTitle("Student Table");
         studentList.setAlwaysOnTop(true);
@@ -82,12 +103,26 @@ public class managementSystemInterface extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(studentTable);
 
-        jLabel1.setText("Current Students Enrolled in Classes at AUT");
+        studentListInfo.setText("Information on Page: Current students enrolled in courses at AUT; their marks, and attendance.");
 
         viewStudentGrades.setText("View Grades");
         viewStudentGrades.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 viewStudentGradesMouseClicked(evt);
+            }
+        });
+
+        viewMarks.setText("View Marks");
+        viewMarks.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                viewMarksMouseClicked(evt);
+            }
+        });
+
+        closeStudentList.setText("Close");
+        closeStudentList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                closeStudentListMouseClicked(evt);
             }
         });
 
@@ -98,24 +133,172 @@ public class managementSystemInterface extends javax.swing.JFrame {
             .addGroup(studentListLayout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(viewStudentGrades)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGroup(studentListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(viewStudentGrades, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(viewMarks, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(closeStudentList, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 25, Short.MAX_VALUE))
             .addGroup(studentListLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(studentListInfo)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         studentListLayout.setVerticalGroup(
             studentListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(studentListLayout.createSequentialGroup()
-                .addGroup(studentListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(studentListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(studentListLayout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(viewStudentGrades)))
+                        .addComponent(viewStudentGrades)
+                        .addGap(18, 18, 18)
+                        .addComponent(viewMarks)
+                        .addGap(225, 225, 225)
+                        .addComponent(closeStudentList))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
-                .addComponent(jLabel1)
-                .addGap(0, 28, Short.MAX_VALUE))
+                .addComponent(studentListInfo)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        editStudentFrame.setTitle("Edit Student Marks/Attendance");
+        editStudentFrame.setMinimumSize(new java.awt.Dimension(510, 355));
+        editStudentFrame.setResizable(false);
+
+        editStudentInfoLabel.setText("Enter the ID of the Student you wish to edit the Marks/Attendance of:");
+
+        editStudentTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "ID", "First Name", "Last Name", "Course ID", "Marks", "Attendance %"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(editStudentTable);
+        if (editStudentTable.getColumnModel().getColumnCount() > 0) {
+            editStudentTable.getColumnModel().getColumn(0).setResizable(false);
+            editStudentTable.getColumnModel().getColumn(0).setPreferredWidth(50);
+            editStudentTable.getColumnModel().getColumn(1).setResizable(false);
+            editStudentTable.getColumnModel().getColumn(2).setResizable(false);
+            editStudentTable.getColumnModel().getColumn(3).setResizable(false);
+            editStudentTable.getColumnModel().getColumn(4).setResizable(false);
+            editStudentTable.getColumnModel().getColumn(5).setResizable(false);
+            editStudentTable.getColumnModel().getColumn(5).setPreferredWidth(75);
+        }
+
+        editMark2.addActionListener(this::editMark2ActionPerformed);
+
+        editAttendanceLabel.setText("Edit Attendance:");
+
+        editMark1Label.setText("Edit Mark 1:");
+
+        editMark2Label.setText("Edit Mark 2:");
+
+        editMark3Label.setText("Edit Mark 3:");
+
+        editMark4Label.setText("Edit Mark 4:");
+
+        applyEditButton.setText("Apply");
+        applyEditButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                applyEditButtonMouseClicked(evt);
+            }
+        });
+
+        jButton1.setText("Close");
+
+        jButton2.setText("Search");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout editStudentFrameLayout = new javax.swing.GroupLayout(editStudentFrame.getContentPane());
+        editStudentFrame.getContentPane().setLayout(editStudentFrameLayout);
+        editStudentFrameLayout.setHorizontalGroup(
+            editStudentFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(editStudentFrameLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(editStudentFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(editStudentFrameLayout.createSequentialGroup()
+                        .addComponent(enterStudentID, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2))
+                    .addComponent(editStudentInfoLabel)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 479, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(editStudentFrameLayout.createSequentialGroup()
+                        .addGroup(editStudentFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(editMark1Label)
+                            .addComponent(editMark2Label)
+                            .addComponent(editMark3Label)
+                            .addComponent(editMark4Label))
+                        .addGap(26, 26, 26)
+                        .addGroup(editStudentFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(editMark1)
+                            .addComponent(editMark2)
+                            .addComponent(editMark3)
+                            .addComponent(editMark4, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE))
+                        .addGap(44, 44, 44)
+                        .addComponent(editAttendanceLabel)
+                        .addGap(18, 18, 18)
+                        .addGroup(editStudentFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(editStudentFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(applyEditButton, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
+                                .addComponent(editAttendance)))))
+                .addContainerGap(14, Short.MAX_VALUE))
+        );
+        editStudentFrameLayout.setVerticalGroup(
+            editStudentFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(editStudentFrameLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(editStudentFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(editStudentFrameLayout.createSequentialGroup()
+                        .addComponent(editStudentInfoLabel)
+                        .addGap(2, 2, 2)
+                        .addGroup(editStudentFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(enterStudentID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(editStudentFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(editMark1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(editAttendance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(editAttendanceLabel)))
+                    .addComponent(editMark1Label))
+                .addGap(18, 18, 18)
+                .addGroup(editStudentFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(editMark2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(editMark2Label)
+                    .addComponent(applyEditButton))
+                .addGap(18, 18, 18)
+                .addGroup(editStudentFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(editStudentFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(editMark3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton1))
+                    .addComponent(editMark3Label))
+                .addGap(18, 18, 18)
+                .addGroup(editStudentFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(editMark4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(editMark4Label))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -135,6 +318,13 @@ public class managementSystemInterface extends javax.swing.JFrame {
 
         managementSystemWelcome.setText("Welcome to the AUT Student Management System!");
 
+        editStudentButton.setText("Edit Student");
+        editStudentButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                editStudentButtonMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -142,8 +332,10 @@ public class managementSystemInterface extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(showStudents)
-                    .addComponent(managementSystemWelcome))
+                    .addComponent(managementSystemWelcome)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(editStudentButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(showStudents, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(75, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -153,7 +345,9 @@ public class managementSystemInterface extends javax.swing.JFrame {
                 .addComponent(managementSystemWelcome)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(showStudents)
-                .addContainerGap(155, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(editStudentButton)
+                .addContainerGap(114, Short.MAX_VALUE))
         );
 
         pack();
@@ -201,8 +395,7 @@ public class managementSystemInterface extends javax.swing.JFrame {
                 for(int i = 0; i < grades.length; i++)
                 {
                     total = Integer.parseInt(grades[i]) + total;
-                }
-                System.out.println(total);
+                }                
                 grade = total;  
                 if(grade > 89)
                 {
@@ -255,6 +448,154 @@ public class managementSystemInterface extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_viewStudentGradesMouseClicked
 
+    private void viewMarksMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewMarksMouseClicked
+        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel) studentTable.getModel();
+        model.setRowCount(0);
+        try
+        {
+            statement = conn.createStatement();
+            rs = statement.executeQuery("SELECT * FROM STUDENT");
+            while(rs.next())
+            {
+                model.addRow(new Object[] {rs.getInt("ID"), rs.getString("FIRST_NAME"), rs.getString("LAST_NAME"), rs.getString("COURSE_UNDERTAKING"), rs.getString("MARKS"), rs.getString("ATTENDANCE")});
+            }
+        }
+        catch(SQLException e)
+        {
+            System.out.println("Data not found...");
+        }
+    }//GEN-LAST:event_viewMarksMouseClicked
+
+    private void closeStudentListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeStudentListMouseClicked
+        // TODO add your handling code here:
+        
+        studentList.hide();
+    }//GEN-LAST:event_closeStudentListMouseClicked
+
+    private void editStudentButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editStudentButtonMouseClicked
+        // TODO add your handling code here:
+        editStudentFrame.show();
+    }//GEN-LAST:event_editStudentButtonMouseClicked
+
+    private void editMark2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editMark2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_editMark2ActionPerformed
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        // TODO add your handling code here:  
+        int count = 0;
+        if(!enterStudentID.getText().matches("[0-9]+"))
+        {
+            return;
+        }
+        System.out.println(enterStudentID.getText());
+        
+        try
+        {
+            statement = conn.createStatement();
+            rs = statement.executeQuery("SELECT ID FROM STUDENT");
+            while(rs.next())
+            {
+                count++;
+            }
+            if(Integer.parseInt(enterStudentID.getText()) > count)
+            {
+                return;
+            }
+            
+        }
+        catch(SQLException e)
+        {
+            
+        }
+        try
+        {
+            statement = conn.createStatement();
+            rs = statement.executeQuery("SELECT * FROM STUDENT");
+            while(rs.next())
+            {
+                if(rs.getInt("ID") == Integer.parseInt(enterStudentID.getText()))
+                {                                     
+                    DefaultTableModel model = (DefaultTableModel) editStudentTable.getModel();
+                    model.setRowCount(0);
+                    model.addRow(new Object[] {rs.getInt("ID"), rs.getString("FIRST_NAME"), rs.getString("LAST_NAME"), rs.getString("COURSE_UNDERTAKING"), rs.getString("MARKS"), rs.getString("ATTENDANCE")});
+                }
+            }
+            
+        }
+        catch (SQLException e)
+        {
+            System.out.println("Error!");
+        }
+        
+        
+    }//GEN-LAST:event_jButton2MouseClicked
+
+    private void applyEditButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_applyEditButtonMouseClicked
+        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel) editStudentTable.getModel();
+        if(model.getValueAt(0, 0) == null)
+        {
+            return;
+        }
+        String courseID = model.getValueAt(0, 3).toString();
+        int mark1, mark2, mark3, mark4, attendance = 0;        
+        if(editMark4.getText().equals(""))
+        {
+            mark4 = 0;
+            editMark4.setText("0");
+        }
+                
+        if(!editMark1.getText().matches("[0-9]+") || !editMark2.getText().matches("[0-9]+") || !editMark3.getText().matches("[0-9]+") || !editMark4.getText().matches("[0-9]+"))
+        {
+            return;
+        }
+        else
+        {
+            mark1 = Integer.parseInt(editMark1.getText()); 
+            mark2 = Integer.parseInt(editMark2.getText()); 
+            mark3 = Integer.parseInt(editMark3.getText());
+            mark4 = Integer.parseInt(editMark4.getText()); 
+            if(Integer.parseInt(editMark1.getText()) > 100)
+                mark1 = 100;
+            if(Integer.parseInt(editMark2.getText()) > 100)
+                mark2 = 100;
+            if(Integer.parseInt(editMark3.getText()) > 100)
+                mark3 = 100;
+            if(Integer.parseInt(editMark4.getText()) > 100)
+                mark4 = 100;
+            
+            
+        }
+        if(editAttendance.getText().equals(""))
+        {
+            String convertAttendance = model.getValueAt(0, 5).toString();
+            convertAttendance = convertAttendance.replace("%", "").trim();
+            System.out.println(convertAttendance);
+            attendance = Integer.parseInt(convertAttendance);            
+        }
+        else if(!editAttendance.getText().matches("[0-9]+"))
+        {
+            return;
+        }
+        if(editAttendance.getText().matches("[0-9]+"))
+        {
+            attendance = Integer.parseInt(editAttendance.getText());
+            if(Integer.parseInt(editAttendance.getText()) > 100)
+            {
+                attendance = 100;
+            }
+        }
+        
+         
+        studentmanagementsystem.StudentsDB.editStudentData(courseID, mark1, mark2, mark3, mark4, attendance);
+        
+        
+        
+        
+    }//GEN-LAST:event_applyEditButtonMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -281,12 +622,33 @@ public class managementSystemInterface extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton applyEditButton;
+    private javax.swing.JButton closeStudentList;
+    private javax.swing.JTextField editAttendance;
+    private javax.swing.JLabel editAttendanceLabel;
+    private javax.swing.JTextField editMark1;
+    private javax.swing.JLabel editMark1Label;
+    private javax.swing.JTextField editMark2;
+    private javax.swing.JLabel editMark2Label;
+    private javax.swing.JTextField editMark3;
+    private javax.swing.JLabel editMark3Label;
+    private javax.swing.JTextField editMark4;
+    private javax.swing.JLabel editMark4Label;
+    private javax.swing.JButton editStudentButton;
+    private javax.swing.JFrame editStudentFrame;
+    private javax.swing.JLabel editStudentInfoLabel;
+    private javax.swing.JTable editStudentTable;
+    private javax.swing.JTextField enterStudentID;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel managementSystemWelcome;
     private javax.swing.JButton showStudents;
     private javax.swing.JFrame studentList;
+    private javax.swing.JLabel studentListInfo;
     private javax.swing.JTable studentTable;
+    private javax.swing.JButton viewMarks;
     private javax.swing.JButton viewStudentGrades;
     // End of variables declaration//GEN-END:variables
 }

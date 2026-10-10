@@ -12,7 +12,7 @@ import java.sql.ResultSet;
 
 /**
  *
- * @author Playtech
+ * @author Samuel Pearson 25302305
  */
 public class StudentsDB {
     
@@ -77,6 +77,12 @@ public class StudentsDB {
         }  
         
         
+    }
+    
+    public static void editStudentData(String course, int mark1, int mark2, int mark3, int mark4, int attendance)            
+    {
+        System.out.println("It is making it to here");
+        System.out.println(course +"\n" + mark1+"\n" + mark2+"\n" + mark3 +"\n"+ mark4+"\n"+ attendance);
     }
     
 }
