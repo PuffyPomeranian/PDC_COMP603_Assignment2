@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -65,14 +66,31 @@ public class managementSystemInterface extends javax.swing.JFrame {
         applyEditButton = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        mark1Label = new javax.swing.JLabel();
+        mark2Label = new javax.swing.JLabel();
+        mark3Label = new javax.swing.JLabel();
+        mark4Label = new javax.swing.JLabel();
+        addStudentFrame = new javax.swing.JFrame();
+        welcomeAddStudentLabel = new javax.swing.JLabel();
+        welcomeAddStudentLabel2 = new javax.swing.JLabel();
+        studentIDLabel = new javax.swing.JLabel();
+        firstNameBox = new javax.swing.JTextField();
+        firstNameLabel = new javax.swing.JLabel();
+        lastNameBox = new javax.swing.JTextField();
+        lastNameLabel = new javax.swing.JLabel();
+        courseSelectorCBox = new javax.swing.JComboBox<>();
+        courseSelectLabel = new javax.swing.JLabel();
+        addStudentApplyButton = new javax.swing.JButton();
+        addStudentCloseButton = new javax.swing.JButton();
         showStudents = new javax.swing.JButton();
         managementSystemWelcome = new javax.swing.JLabel();
         editStudentButton = new javax.swing.JButton();
+        welcomeLable = new javax.swing.JLabel();
+        addStudentButton = new javax.swing.JButton();
 
         studentList.setTitle("Student Table");
         studentList.setAlwaysOnTop(true);
         studentList.setMinimumSize(new java.awt.Dimension(678, 420));
-        studentList.setPreferredSize(new java.awt.Dimension(639, 280));
         studentList.setResizable(false);
 
         studentTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -203,7 +221,7 @@ public class managementSystemInterface extends javax.swing.JFrame {
 
         editMark2.addActionListener(this::editMark2ActionPerformed);
 
-        editAttendanceLabel.setText("Edit Attendance:");
+        editAttendanceLabel.setText("Edit Attendance%:");
 
         editMark1Label.setText("Edit Mark 1:");
 
@@ -221,6 +239,7 @@ public class managementSystemInterface extends javax.swing.JFrame {
         });
 
         jButton1.setText("Close");
+        jButton1.addActionListener(this::jButton1ActionPerformed);
 
         jButton2.setText("Search");
         jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -235,7 +254,7 @@ public class managementSystemInterface extends javax.swing.JFrame {
             editStudentFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(editStudentFrameLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(editStudentFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(editStudentFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(editStudentFrameLayout.createSequentialGroup()
                         .addComponent(enterStudentID, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -254,14 +273,28 @@ public class managementSystemInterface extends javax.swing.JFrame {
                             .addComponent(editMark2)
                             .addComponent(editMark3)
                             .addComponent(editMark4, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE))
-                        .addGap(44, 44, 44)
-                        .addComponent(editAttendanceLabel)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(editStudentFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(editStudentFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(applyEditButton, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
-                                .addComponent(editAttendance)))))
+                            .addComponent(mark4Label)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, editStudentFrameLayout.createSequentialGroup()
+                                .addGroup(editStudentFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(editStudentFrameLayout.createSequentialGroup()
+                                        .addGroup(editStudentFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(editStudentFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addComponent(mark1Label)
+                                                .addComponent(mark2Label))
+                                            .addComponent(mark3Label))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(applyEditButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(editStudentFrameLayout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addGroup(editStudentFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(editStudentFrameLayout.createSequentialGroup()
+                                                .addComponent(editAttendanceLabel)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(editAttendance, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addGap(15, 15, 15)))))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
         editStudentFrameLayout.setVerticalGroup(
@@ -281,25 +314,72 @@ public class managementSystemInterface extends javax.swing.JFrame {
                         .addGroup(editStudentFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(editMark1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(editAttendance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(editAttendanceLabel)))
+                            .addComponent(editAttendanceLabel)
+                            .addComponent(mark1Label)))
                     .addComponent(editMark1Label))
                 .addGap(18, 18, 18)
                 .addGroup(editStudentFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(editMark2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(editMark2Label)
-                    .addComponent(applyEditButton))
+                    .addComponent(applyEditButton)
+                    .addComponent(mark2Label))
                 .addGap(18, 18, 18)
                 .addGroup(editStudentFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(editStudentFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(editMark3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton1))
+                        .addComponent(jButton1)
+                        .addComponent(mark3Label))
                     .addComponent(editMark3Label))
                 .addGap(18, 18, 18)
                 .addGroup(editStudentFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(editMark4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(editMark4Label))
+                    .addComponent(editMark4Label)
+                    .addComponent(mark4Label))
                 .addContainerGap(44, Short.MAX_VALUE))
         );
+
+        addStudentFrame.setTitle("Add Student Window");
+        addStudentFrame.setAlwaysOnTop(true);
+        addStudentFrame.setMinimumSize(new java.awt.Dimension(450, 300));
+        addStudentFrame.setResizable(false);
+        addStudentFrame.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        welcomeAddStudentLabel.setText("Welcome to the Add Student Menu! Please fill out the Form and press");
+        addStudentFrame.getContentPane().add(welcomeAddStudentLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, -1, -1));
+
+        welcomeAddStudentLabel2.setText("apply.");
+        addStudentFrame.getContentPane().add(welcomeAddStudentLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 28, -1, -1));
+
+        studentIDLabel.setText("Your auto generated Student ID is: ");
+        addStudentFrame.getContentPane().add(studentIDLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 28, -1, -1));
+        addStudentFrame.getContentPane().add(firstNameBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(72, 62, 148, -1));
+
+        firstNameLabel.setText("First Name:");
+        addStudentFrame.getContentPane().add(firstNameLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 65, -1, -1));
+
+        lastNameBox.addActionListener(this::lastNameBoxActionPerformed);
+        addStudentFrame.getContentPane().add(lastNameBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, 150, -1));
+
+        lastNameLabel.setText("Last Name:");
+        addStudentFrame.getContentPane().add(lastNameLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 105, -1, -1));
+
+        courseSelectorCBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ACCT703", "BUSS512", "BUSS514", "COMP500", "COMP501", "COMP503", "DESN511", "DESN711", "DIGD511" }));
+        addStudentFrame.getContentPane().add(courseSelectorCBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 80, -1, -1));
+
+        courseSelectLabel.setText("Course Select:");
+        addStudentFrame.getContentPane().add(courseSelectLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 60, -1, -1));
+
+        addStudentApplyButton.setText("Apply");
+        addStudentApplyButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addStudentApplyButtonMouseClicked(evt);
+            }
+        });
+        addStudentApplyButton.addActionListener(this::addStudentApplyButtonActionPerformed);
+        addStudentFrame.getContentPane().add(addStudentApplyButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 199, 112, -1));
+
+        addStudentCloseButton.setText("Close");
+        addStudentFrame.getContentPane().add(addStudentCloseButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 228, 112, -1));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("AUT Student Management System");
@@ -325,6 +405,15 @@ public class managementSystemInterface extends javax.swing.JFrame {
             }
         });
 
+        welcomeLable.setText("Please select from one of the following options:");
+
+        addStudentButton.setText("Add Student");
+        addStudentButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addStudentButtonMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -333,7 +422,9 @@ public class managementSystemInterface extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(managementSystemWelcome)
+                    .addComponent(welcomeLable)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(addStudentButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(editStudentButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(showStudents, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(75, Short.MAX_VALUE))
@@ -343,11 +434,15 @@ public class managementSystemInterface extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addComponent(managementSystemWelcome)
+                .addGap(5, 5, 5)
+                .addComponent(welcomeLable)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(showStudents)
                 .addGap(18, 18, 18)
                 .addComponent(editStudentButton)
-                .addContainerGap(114, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(addStudentButton)
+                .addContainerGap(79, Short.MAX_VALUE))
         );
 
         pack();
@@ -519,7 +614,36 @@ public class managementSystemInterface extends javax.swing.JFrame {
                 {                                     
                     DefaultTableModel model = (DefaultTableModel) editStudentTable.getModel();
                     model.setRowCount(0);
+                    String course = rs.getString("COURSE_UNDERTAKING");
                     model.addRow(new Object[] {rs.getInt("ID"), rs.getString("FIRST_NAME"), rs.getString("LAST_NAME"), rs.getString("COURSE_UNDERTAKING"), rs.getString("MARKS"), rs.getString("ATTENDANCE")});
+                    if(course.equals("COMP500") || course.equals("COMP501") || course.equals("ACCT703") || course.equals("DESN711") || course.equals("DIGD511"))
+                    {
+                        mark1Label.setText("/30");
+                        mark2Label.setText("/30");
+                        mark3Label.setText("/40");
+                        mark4Label.setText("");                        
+                    }
+                    else if(course.equals("COMP503"))
+                    {
+                        mark1Label.setText("/10");
+                        mark2Label.setText("/10");
+                        mark3Label.setText("/40");
+                        mark4Label.setText("/40");
+                    }
+                    else if(course.equals("BUSS512"))
+                    {
+                        mark1Label.setText("/10");
+                        mark2Label.setText("/20");
+                        mark3Label.setText("/60");
+                        mark4Label.setText("/10");
+                    }
+                    else if(course.equals("BUSS514") || course.equals("DESN511"))
+                    {
+                        mark1Label.setText("/25");
+                        mark2Label.setText("/25");
+                        mark3Label.setText("/50");
+                        mark4Label.setText("");
+                    }
                 }
             }
             
@@ -539,8 +663,11 @@ public class managementSystemInterface extends javax.swing.JFrame {
         {
             return;
         }
-        String courseID = model.getValueAt(0, 3).toString();
-        int mark1, mark2, mark3, mark4, attendance = 0;        
+        String idString = model.getValueAt(0, 0).toString();
+        int id = Integer.parseInt(idString);
+        String course = model.getValueAt(0, 3).toString();        
+        int mark1, mark2, mark3, mark4, attendance = 0;
+        
         if(editMark4.getText().equals(""))
         {
             mark4 = 0;
@@ -558,13 +685,13 @@ public class managementSystemInterface extends javax.swing.JFrame {
             mark3 = Integer.parseInt(editMark3.getText());
             mark4 = Integer.parseInt(editMark4.getText()); 
             if(Integer.parseInt(editMark1.getText()) > 100)
-                mark1 = 100;
+                mark1 = 0;
             if(Integer.parseInt(editMark2.getText()) > 100)
-                mark2 = 100;
+                mark2 = 0;
             if(Integer.parseInt(editMark3.getText()) > 100)
-                mark3 = 100;
+                mark3 = 0;
             if(Integer.parseInt(editMark4.getText()) > 100)
-                mark4 = 100;
+                mark4 = 0;
             
             
         }
@@ -587,14 +714,117 @@ public class managementSystemInterface extends javax.swing.JFrame {
                 attendance = 100;
             }
         }
-        
-         
-        studentmanagementsystem.StudentsDB.editStudentData(courseID, mark1, mark2, mark3, mark4, attendance);
+        if(course.equals("COMP500") || course.equals("COMP501") || course.equals("ACCT703") || course.equals("DESN711") || course.equals("DIGD511"))
+        {             
+            if(mark1 > 30 || mark2 > 30 || mark3 > 40)
+            {
+                JOptionPane.showMessageDialog(this.editStudentFrame, "Warning! Mark 1 & 2 must be 30 or below!\nMark 3 must be 40 or below!");
+                return;
+            }
+        }
+        else if(course.equals("COMP503"))
+        {            
+            if(mark1 > 10 || mark2 > 10 || mark3 > 40 || mark4 > 40)
+            {
+                JOptionPane.showMessageDialog(this.editStudentFrame, "Warning! Mark 1 & 2 must be 10 or below!\nMark 3 & 4 must be 40 or below!");
+                return;
+            }
+        }
+        else if(course.equals("BUSS512"))
+        {            
+            if(mark1 > 10 || mark2 > 20 || mark3 > 60 || mark4 > 10)
+            {
+                JOptionPane.showMessageDialog(this.editStudentFrame, "Warning! Mark 1 & 4 must be 10 or below!\nMark 2 must be 20 or below!\nMark 3 must be 60 or below!");
+                return;
+            }
+        }
+        else if(course.equals("BUSS514") || course.equals("DESN511"))
+        {            
+            if(mark1 > 25 || mark2 > 25 || mark3 > 50)
+            {
+                JOptionPane.showMessageDialog(this.editStudentFrame, "Warning! Mark 1 & 2 must be 25 or below!\nMark 3 must be 50 or below!");
+                return;
+            }            
+        }
+        StudentsDB sdb = new StudentsDB();
+        sdb.editStudentData(id, course, mark1, mark2, mark3, mark4, attendance);
         
         
         
         
     }//GEN-LAST:event_applyEditButtonMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void addStudentButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addStudentButtonMouseClicked
+        // TODO add your handling code here:
+        addStudentFrame.show();
+        int count = 1;
+        try
+        {
+            
+            statement = conn.createStatement();
+            rs = statement.executeQuery("SELECT * FROM STUDENT");
+            while(rs.next())
+            {
+                count++;
+            }            
+            studentIDLabel.setText("Your auto generated Student ID is: "+count);
+        }
+        catch (SQLException e)
+        {
+            
+        }
+        
+    }//GEN-LAST:event_addStudentButtonMouseClicked
+
+    private void addStudentApplyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStudentApplyButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addStudentApplyButtonActionPerformed
+
+    private void addStudentApplyButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addStudentApplyButtonMouseClicked
+        // TODO add your handling code here:
+        int count = 1;
+        int id = 0;
+        String firstName = firstNameBox.getText();
+        String lastName = lastNameBox.getText();
+        try
+        {
+
+            statement = conn.createStatement();
+            rs = statement.executeQuery("SELECT * FROM STUDENT");
+            while(rs.next())
+            {
+                count++;
+            }
+            id = count;
+
+        }
+        catch (SQLException e)
+        {
+
+        }
+        if(!firstName.matches("[a-zA-Z\\s-']+") || firstName.length() < 2)
+        {
+            return;
+        }
+        if(!lastName.matches("[a-zA-Z\\s-']+") || lastName.length() < 2)
+        {
+            return;
+        }
+        
+        String course = courseSelectorCBox.getSelectedItem().toString();
+        System.out.println(course);
+        
+        StudentsDB db = new StudentsDB();
+        db.addStudent(id, firstName, lastName, course);
+    }//GEN-LAST:event_addStudentApplyButtonMouseClicked
+
+    private void lastNameBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lastNameBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lastNameBoxActionPerformed
 
     /**
      * @param args the command line arguments
@@ -622,8 +852,14 @@ public class managementSystemInterface extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addStudentApplyButton;
+    private javax.swing.JButton addStudentButton;
+    private javax.swing.JButton addStudentCloseButton;
+    private javax.swing.JFrame addStudentFrame;
     private javax.swing.JButton applyEditButton;
     private javax.swing.JButton closeStudentList;
+    private javax.swing.JLabel courseSelectLabel;
+    private javax.swing.JComboBox<String> courseSelectorCBox;
     private javax.swing.JTextField editAttendance;
     private javax.swing.JLabel editAttendanceLabel;
     private javax.swing.JTextField editMark1;
@@ -639,16 +875,28 @@ public class managementSystemInterface extends javax.swing.JFrame {
     private javax.swing.JLabel editStudentInfoLabel;
     private javax.swing.JTable editStudentTable;
     private javax.swing.JTextField enterStudentID;
+    private javax.swing.JTextField firstNameBox;
+    private javax.swing.JLabel firstNameLabel;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextField lastNameBox;
+    private javax.swing.JLabel lastNameLabel;
     private javax.swing.JLabel managementSystemWelcome;
+    private javax.swing.JLabel mark1Label;
+    private javax.swing.JLabel mark2Label;
+    private javax.swing.JLabel mark3Label;
+    private javax.swing.JLabel mark4Label;
     private javax.swing.JButton showStudents;
+    private javax.swing.JLabel studentIDLabel;
     private javax.swing.JFrame studentList;
     private javax.swing.JLabel studentListInfo;
     private javax.swing.JTable studentTable;
     private javax.swing.JButton viewMarks;
     private javax.swing.JButton viewStudentGrades;
+    private javax.swing.JLabel welcomeAddStudentLabel;
+    private javax.swing.JLabel welcomeAddStudentLabel2;
+    private javax.swing.JLabel welcomeLable;
     // End of variables declaration//GEN-END:variables
 }

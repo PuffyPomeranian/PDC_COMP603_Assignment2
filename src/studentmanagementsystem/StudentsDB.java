@@ -19,6 +19,7 @@ public class StudentsDB {
     private final DBManager dbManager;
     private final Connection conn;
     private Statement statement;
+    private ResultSet rs;
     
     public StudentsDB() {
         dbManager = new DBManager();
@@ -79,10 +80,51 @@ public class StudentsDB {
         
     }
     
-    public static void editStudentData(String course, int mark1, int mark2, int mark3, int mark4, int attendance)            
+    public void editStudentData(int id, String course, int mark1, int mark2, int mark3, int mark4, int attendance)            
     {
-        System.out.println("It is making it to here");
-        System.out.println(course +"\n" + mark1+"\n" + mark2+"\n" + mark3 +"\n"+ mark4+"\n"+ attendance);
+        String marks = "";
+        //students.get(i).getAssessmentMarks().getCourse().getCode().equals("COMP500") || 
+        //students.get(i).getAssessmentMarks().getCourse().getCode().equals("COMP501") || 
+        //students.get(i).getAssessmentMarks().getCourse().getCode().equals("ACCT703") ||
+        //students.get(i).getAssessmentMarks().getCourse().getCode().equals("DESN711") || 
+        //students.get(i).getAssessmentMarks().getCourse().getCode().equals("DIGD511")
+        try
+        {
+            statement = conn.createStatement();   
+            if(course.equals("COMP500") || course.equals("COMP501") || course.equals("ACCT703") || course.equals("DESN711") || course.equals("DIGD511") || course.equals("BUSS514") || course.equals("DESN511"))
+            {
+                marks = String.valueOf(mark1) + ", " + String.valueOf(mark2) + ", " + String.valueOf(mark3);                
+            }
+            else
+            {
+                marks = String.valueOf(mark1) + ", " + String.valueOf(mark2) + ", " + String.valueOf(mark3) + ", " + String.valueOf(mark4);                
+            }
+            statement.executeUpdate("UPDATE STUDENT SET MARKS = '"+marks+"', ATTENDANCE = '"+attendance+"%' WHERE ID = "+id);
+                
+        }
+        catch (SQLException e )
+        {
+            System.out.println("Invalid Statement");            
+        }               
+    }
+    
+    public void addStudent(int id, String firstName, String lastName, String course)
+    {
+        try
+        {
+            String marks = "";
+            if(course.equals("COMP500") || course.equals("COMP501") || course.equals("ACCT703") || course.equals("DESN711") || course.equals("DIGD511") || course.equals("BUSS514") || course.equals("DESN511"))
+                marks = "0, 0, 0";
+            else
+                marks = "0, 0, 0, 0";
+            
+            statement = conn.createStatement();
+            statement.executeUpdate("INSERT INTO STUDENT VALUES("+id+", '"+firstName+"', '"+lastName+"', '"+marks+"', '0%')");
+        }
+        catch (SQLException e)
+        {
+            System.out.println("Invalid Entry");
+        }
     }
     
 }
