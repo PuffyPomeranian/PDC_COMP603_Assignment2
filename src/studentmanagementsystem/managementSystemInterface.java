@@ -106,7 +106,6 @@ public class managementSystemInterface extends javax.swing.JFrame {
         removeStudentButton = new javax.swing.JButton();
 
         studentList.setTitle("Student Table");
-        studentList.setAlwaysOnTop(true);
         studentList.setMinimumSize(new java.awt.Dimension(678, 420));
         studentList.setResizable(false);
 
@@ -362,7 +361,6 @@ public class managementSystemInterface extends javax.swing.JFrame {
         );
 
         addStudentFrame.setTitle("Add Student Window");
-        addStudentFrame.setAlwaysOnTop(true);
         addStudentFrame.setMinimumSize(new java.awt.Dimension(450, 300));
         addStudentFrame.setResizable(false);
         addStudentFrame.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -410,7 +408,6 @@ public class managementSystemInterface extends javax.swing.JFrame {
         addStudentFrame.getContentPane().add(addStudentCloseButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 228, 112, -1));
 
         removeStudentFrame.setTitle("Remove Student");
-        removeStudentFrame.setAlwaysOnTop(true);
         removeStudentFrame.setMinimumSize(new java.awt.Dimension(455, 273));
 
         removeStudentWelcomeLabel.setText("Welcome to the Remove Student Window! Please start by entering the ID");
@@ -455,8 +452,18 @@ public class managementSystemInterface extends javax.swing.JFrame {
         }
 
         studentApplyRemoveButton.setText("Remove");
+        studentApplyRemoveButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                studentApplyRemoveButtonMouseClicked(evt);
+            }
+        });
 
         studentRemoveCloseButton.setText("Close");
+        studentRemoveCloseButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                studentRemoveCloseButtonMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout removeStudentFrameLayout = new javax.swing.GroupLayout(removeStudentFrame.getContentPane());
         removeStudentFrame.getContentPane().setLayout(removeStudentFrameLayout);
@@ -706,6 +713,18 @@ public class managementSystemInterface extends javax.swing.JFrame {
     private void editStudentButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editStudentButtonMouseClicked
         // TODO add your handling code here:
         editStudentFrame.show();
+        enterStudentID.setText("");
+        editMark1.setText("");
+        editMark2.setText("");
+        editMark3.setText("");
+        editMark4.setText("");
+        mark1Label.setText("");
+        mark2Label.setText("");
+        mark3Label.setText("");
+        mark4Label.setText(""); 
+        editAttendance.setText("");
+        DefaultTableModel model = (DefaultTableModel) editStudentTable.getModel();
+        model.setRowCount(0);
     }//GEN-LAST:event_editStudentButtonMouseClicked
 
     private void editMark2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editMark2ActionPerformed
@@ -896,6 +915,9 @@ public class managementSystemInterface extends javax.swing.JFrame {
     private void addStudentButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addStudentButtonMouseClicked
         // TODO add your handling code here:
         addStudentFrame.show();
+        firstNameBox.setText("");
+        lastNameBox.setText("");
+        courseSelectorCBox.setSelectedIndex(0);
         int count = 1;
         try
         {
@@ -904,7 +926,7 @@ public class managementSystemInterface extends javax.swing.JFrame {
             rs = statement.executeQuery("SELECT * FROM STUDENT");
             while(rs.next())
             {
-                count++;
+                count = rs.getInt("ID") + 1;
             }            
             studentIDLabel.setText("Your auto generated Student ID is: "+count);
         }
@@ -931,12 +953,13 @@ public class managementSystemInterface extends javax.swing.JFrame {
         {
 
             statement = conn.createStatement();
-            rs = statement.executeQuery("SELECT * FROM STUDENT");
+            rs = statement.executeQuery("SELECT ID FROM STUDENT");
             while(rs.next())
             {
-                count++;
+                count = rs.getInt("ID") + 1;
             }
             id = count;
+            
 
         }
         catch (SQLException e)
@@ -966,29 +989,21 @@ public class managementSystemInterface extends javax.swing.JFrame {
 
     private void closeEditStudentsButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeEditStudentsButtonMouseClicked
         // TODO add your handling code here:
-        editStudentFrame.hide();
-        enterStudentID.setText("");
-        editMark1.setText("");
-        editMark2.setText("");
-        editMark3.setText("");
-        editMark4.setText("");
-        editAttendance.setText("");
-        DefaultTableModel model = (DefaultTableModel) editStudentTable.getModel();
-        model.setRowCount(0);
+        editStudentFrame.hide();        
     }//GEN-LAST:event_closeEditStudentsButtonMouseClicked
 
     private void addStudentCloseButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addStudentCloseButtonMouseClicked
         // TODO add your handling code here:
-        //Hides the add Student Frame and clears the boxes 
-        addStudentFrame.hide();        
-        firstNameBox.setText("");
-        lastNameBox.setText("");
-        courseSelectorCBox.setSelectedIndex(0);
+        //Hides the add Student Frame
+        addStudentFrame.hide();               
     }//GEN-LAST:event_addStudentCloseButtonMouseClicked
 
     private void removeStudentButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_removeStudentButtonMouseClicked
         // TODO add your handling code here:
         removeStudentFrame.show();
+        DefaultTableModel model = (DefaultTableModel) removeStudentTable.getModel();
+        model.setRowCount(0);
+        idEnterRemoveBox.setText("");
     }//GEN-LAST:event_removeStudentButtonMouseClicked
 
     private void studentSearchRemoveButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_studentSearchRemoveButtonMouseClicked
@@ -1038,6 +1053,29 @@ public class managementSystemInterface extends javax.swing.JFrame {
            
         
     }//GEN-LAST:event_studentSearchRemoveButtonMouseClicked
+
+    private void studentApplyRemoveButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_studentApplyRemoveButtonMouseClicked
+        // TODO add your handling code here: 
+        DefaultTableModel model = (DefaultTableModel) removeStudentTable.getModel();
+        if(model.getValueAt(0, 0) == null)
+        {
+            JOptionPane.showMessageDialog(null, "The table is empty, no student detected for removal!","Warning",JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        int id = (int) model.getValueAt(0, 0);        
+        int yes_or_no = JOptionPane.showConfirmDialog(null, "Are you sure you want to remove this student?","Warning",JOptionPane.YES_NO_OPTION);
+        if(yes_or_no == JOptionPane.YES_OPTION)
+        {
+            StudentsDB db = new StudentsDB();
+            db.removeStudent(id);
+        }
+                
+    }//GEN-LAST:event_studentApplyRemoveButtonMouseClicked
+
+    private void studentRemoveCloseButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_studentRemoveCloseButtonMouseClicked
+        // TODO add your handling code here:
+        removeStudentFrame.hide();        
+    }//GEN-LAST:event_studentRemoveCloseButtonMouseClicked
 
     /**
      * @param args the command line arguments

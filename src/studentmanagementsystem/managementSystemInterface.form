@@ -5,7 +5,6 @@
     <Container class="javax.swing.JFrame" name="studentList">
       <Properties>
         <Property name="title" type="java.lang.String" value="Student Table"/>
-        <Property name="alwaysOnTop" type="boolean" value="true"/>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[678, 420]"/>
         </Property>
@@ -413,7 +412,6 @@
     <Container class="javax.swing.JFrame" name="addStudentFrame">
       <Properties>
         <Property name="title" type="java.lang.String" value="Add Student Window"/>
-        <Property name="alwaysOnTop" type="boolean" value="true"/>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[450, 300]"/>
         </Property>
@@ -558,7 +556,6 @@
     <Container class="javax.swing.JFrame" name="removeStudentFrame">
       <Properties>
         <Property name="title" type="java.lang.String" value="Remove Student"/>
-        <Property name="alwaysOnTop" type="boolean" value="true"/>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[455, 273]"/>
         </Property>
@@ -695,11 +692,17 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Remove"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="studentApplyRemoveButtonMouseClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="studentRemoveCloseButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Close"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="studentRemoveCloseButtonMouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

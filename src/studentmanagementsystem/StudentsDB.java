@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -119,11 +120,27 @@ public class StudentsDB {
                 marks = "0, 0, 0, 0";
             
             statement = conn.createStatement();
-            statement.executeUpdate("INSERT INTO STUDENT VALUES("+id+", '"+firstName+"', '"+lastName+"', '"+marks+"', '0%')");
+            statement.executeUpdate("INSERT INTO STUDENT VALUES("+id+", '"+firstName+"', '"+lastName+"', '"+course+"', '"+marks+"', '0%')");
         }
         catch (SQLException e)
         {
             System.out.println("Invalid Entry");
+            e.printStackTrace();
+        }
+        JOptionPane.showConfirmDialog(null, "Student has been added","Information",JOptionPane.DEFAULT_OPTION);
+    }
+    
+    public void removeStudent(int id)
+    {
+        try
+        {
+           statement = conn.createStatement();
+           statement.executeUpdate("DELETE FROM STUDENT WHERE ID = "+id);
+           JOptionPane.showConfirmDialog(null, "Student has been removed.","Information",JOptionPane.DEFAULT_OPTION);
+        }
+        catch(SQLException e)
+        {
+            
         }
     }
     
