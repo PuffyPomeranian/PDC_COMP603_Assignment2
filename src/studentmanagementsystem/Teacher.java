@@ -18,28 +18,23 @@ public class Teacher extends Person {
     };
     
     private teacherPosition position;
-    private Course course;
     
-    public Teacher(int id, String firstName, String lastName, teacherPosition position, Course course)
+    
+    public Teacher(int id, String firstName, String lastName, teacherPosition position)
     {
         super(id, firstName, lastName);
-        this.position = position;
-        this.course = course;
+        this.position = position;        
     }
     
     public teacherPosition getPosition() { return position; }
     
-    public Course getCourse() { return course; }
     
     
-    public void setPosition(teacherPosition newPosition) { this.position = newPosition; }
     
-    public void setCourse(Course newCourse) { this.course = newCourse; }
+    public void setPosition(teacherPosition newPosition) { this.position = newPosition; }    
     
-    @Override
-    public String toString()
-    {        
-        return "ID: "+getId()+"\nFirst Name: "+getFirstName()+"\nLast Name: "+getLastName()+"\nPosition: "+getPosition()+ "\nCourse Taught: "+getCourse().getCode() + "\n";
-    }
+    
+    
+    
     
 }

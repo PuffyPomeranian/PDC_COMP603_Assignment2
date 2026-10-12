@@ -22,13 +22,13 @@ public class AddStudentsOrLecturers {
     
     //This is the class for adding new students and teachers
     
-    public static ArrayList<Course> courses = new ArrayList(); 
+    
     // Refer to the courses to add a new student into
     
     public static void AddStudents(ArrayList<Student> students, ArrayList<Student> studentsAttendance) throws IOException
     {
         Scanner scan = new Scanner(System.in);
-        courses = Utilities.courseInfo();        
+           
         System.out.println("Welcome to the add students system.\nPlease press Y to proceed, or N to go back.");        
         String proceed = scan.nextLine().toUpperCase();        
         while(!proceed.equals("Y") && !proceed.equals("N"))
@@ -200,21 +200,14 @@ public class AddStudentsOrLecturers {
         }
         int crsNum = 0;
         
-        for(int k = 0; k < courses.size(); k++)
-        {
-            if(crsCode.equals(courses.get(k).getCode()))
-            {
-                crsNum = k;
-                break;
-            }
-        }
-        AssessmentMarks assessmentMarks = new AssessmentMarks(courses.get(crsNum), marks);
+        
+        
         //Adds the new student into the ArrayList
-        Student student = new Student(id, firstName, lastName, assessmentMarks);
+        
         int attendance = 0; // Default attendance can be edited later in the edit students screen        
         Student studentAttendance = new Student(id, firstName, lastName, attendance);
         studentsAttendance.add(studentAttendance);
-        students.add(student);          
+                 
         
         //Writes the new student back into the leaner file
         FileWriter fw = new FileWriter("./resources/learners.txt");
@@ -226,19 +219,7 @@ public class AddStudentsOrLecturers {
             pw.print(students.get(i).getId() + ",");
             pw.print(students.get(i).getFirstName() + ",");
             pw.print(students.get(i).getLastName() + ",");
-            pw.print(students.get(i).getAssessmentMarks().getCourse().getCode() + ",");
-            for(int j = 0; j < students.get(i).getAssessmentMarks().getMarks().size(); j++)
-            {
-                if(j != students.get(i).getAssessmentMarks().getMarks().size() - 1)
-                {
-                    pw.print(students.get(i).getAssessmentMarks().getMarks().get(j) + ",");
-                }
-                else
-                {
-                    pw.print(students.get(i).getAssessmentMarks().getMarks().get(j) + "");
-                }
-                
-            }
+            
             pw.println();                      
         }        
         pw.flush();
@@ -263,7 +244,7 @@ public class AddStudentsOrLecturers {
     public static void AddTeacher(ArrayList<Teacher> teachers) throws IOException
     {
         //This method adds a teacher
-        courses = Utilities.courseInfo();
+        
         System.out.println("Welcome to the add teachers page.\nPlease press Y to proceed, or N to go back.");
         Scanner scan = new Scanner(System.in);
         String proceed = scan.nextLine().toUpperCase();        
@@ -458,20 +439,11 @@ public class AddStudentsOrLecturers {
                 isHappy = true;
             }             
         }
-        int crsNum = 0;
-        for(int i = 0; i < courses.size(); i++)
-        {
-            if(crsCode.equals(courses.get(i).getCode()))
-            {
-                crsNum = i;
-                break;
-            }
-        }
+        
         //This adds the teacher to the teacher array list
         System.out.println("\nTeacher has been successfully added! Returning to the main menu...");
         //The Teacher.teacherPosition.values()[role] code was help from Gemini
-        Teacher teacher = new Teacher(id, firstName, lastName, Teacher.teacherPosition.values()[role], courses.get(crsNum));
-        teachers.add(teacher);        
+              
         
         //And this prints the new teacher into the teacher text file
         FileWriter fw = new FileWriter("./resources/teachers.txt");
@@ -484,7 +456,7 @@ public class AddStudentsOrLecturers {
             pw.print(teachers.get(i).getFirstName() + ",");
             pw.print(teachers.get(i).getLastName() + ",");
             pw.print(teachers.get(i).getPosition().ordinal() + ",");
-            pw.println(teachers.get(i).getCourse().getCode());            
+                     
         }
         pw.flush();
         pw.close();

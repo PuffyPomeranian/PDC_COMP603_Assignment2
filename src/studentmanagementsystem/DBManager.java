@@ -14,7 +14,7 @@ import java.sql.Statement;
  *
  * @author Playtech
  */
-public class DBManager {
+public final class DBManager {
     
     private static final String USER_NAME = "pdc";
     private static final String PASSWORD = "pdc"; 

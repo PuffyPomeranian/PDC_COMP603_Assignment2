@@ -36,6 +36,7 @@ public class managementSystemInterface extends javax.swing.JFrame {
         studentList.setLocationRelativeTo(null);
         editStudentFrame.setLocationRelativeTo(null);
         removeStudentFrame.setLocationRelativeTo(null);
+        showCoursesFrame.setLocationRelativeTo(null);
         
         
     }
@@ -98,12 +99,20 @@ public class managementSystemInterface extends javax.swing.JFrame {
         removeStudentTable = new javax.swing.JTable();
         studentApplyRemoveButton = new javax.swing.JButton();
         studentRemoveCloseButton = new javax.swing.JButton();
+        showCoursesFrame = new javax.swing.JFrame();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        courseTable = new javax.swing.JTable();
+        showFacultiesButton = new javax.swing.JButton();
+        showMajorsButton = new javax.swing.JButton();
+        returntoCoursesButton = new javax.swing.JButton();
+        closeShowCoursesButton = new javax.swing.JButton();
         showStudents = new javax.swing.JButton();
         managementSystemWelcome = new javax.swing.JLabel();
         editStudentButton = new javax.swing.JButton();
         welcomeLable = new javax.swing.JLabel();
         addStudentButton = new javax.swing.JButton();
         removeStudentButton = new javax.swing.JButton();
+        showCoursesButton = new javax.swing.JButton();
 
         studentList.setTitle("Student Table");
         studentList.setMinimumSize(new java.awt.Dimension(678, 420));
@@ -513,6 +522,99 @@ public class managementSystemInterface extends javax.swing.JFrame {
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
+        showCoursesFrame.setMinimumSize(new java.awt.Dimension(615, 225));
+
+        courseTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Course ID", "Course Name", "Credits", "Fees"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Float.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane4.setViewportView(courseTable);
+        if (courseTable.getColumnModel().getColumnCount() > 0) {
+            courseTable.getColumnModel().getColumn(0).setMinWidth(50);
+            courseTable.getColumnModel().getColumn(0).setMaxWidth(75);
+            courseTable.getColumnModel().getColumn(2).setMinWidth(10);
+            courseTable.getColumnModel().getColumn(2).setMaxWidth(50);
+            courseTable.getColumnModel().getColumn(3).setMinWidth(25);
+            courseTable.getColumnModel().getColumn(3).setMaxWidth(75);
+        }
+
+        showFacultiesButton.setText("Show Faculties");
+        showFacultiesButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                showFacultiesButtonMouseClicked(evt);
+            }
+        });
+
+        showMajorsButton.setText("Show Majors");
+        showMajorsButton.addActionListener(this::showMajorsButtonActionPerformed);
+
+        returntoCoursesButton.setText("Show Courses");
+        returntoCoursesButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                returntoCoursesButtonMouseClicked(evt);
+            }
+        });
+
+        closeShowCoursesButton.setText("Close");
+        closeShowCoursesButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                closeShowCoursesButtonMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout showCoursesFrameLayout = new javax.swing.GroupLayout(showCoursesFrame.getContentPane());
+        showCoursesFrame.getContentPane().setLayout(showCoursesFrameLayout);
+        showCoursesFrameLayout.setHorizontalGroup(
+            showCoursesFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(showCoursesFrameLayout.createSequentialGroup()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(showCoursesFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(showFacultiesButton, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
+                    .addComponent(showMajorsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(returntoCoursesButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(closeShowCoursesButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        showCoursesFrameLayout.setVerticalGroup(
+            showCoursesFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(showCoursesFrameLayout.createSequentialGroup()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(showCoursesFrameLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(showFacultiesButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(showMajorsButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(returntoCoursesButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(closeShowCoursesButton)
+                .addContainerGap())
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("AUT Student Management System");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -553,6 +655,13 @@ public class managementSystemInterface extends javax.swing.JFrame {
             }
         });
 
+        showCoursesButton.setText(" Course Info");
+        showCoursesButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                showCoursesButtonMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -560,14 +669,20 @@ public class managementSystemInterface extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(managementSystemWelcome)
-                    .addComponent(welcomeLable)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(removeStudentButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(addStudentButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(editStudentButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(showStudents, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(75, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(removeStudentButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(addStudentButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(editStudentButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(showStudents, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(showCoursesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(managementSystemWelcome)
+                            .addComponent(welcomeLable))
+                        .addGap(0, 69, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -577,7 +692,9 @@ public class managementSystemInterface extends javax.swing.JFrame {
                 .addGap(5, 5, 5)
                 .addComponent(welcomeLable)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(showStudents)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(showStudents)
+                    .addComponent(showCoursesButton))
                 .addGap(18, 18, 18)
                 .addComponent(editStudentButton)
                 .addGap(18, 18, 18)
@@ -1077,6 +1194,129 @@ public class managementSystemInterface extends javax.swing.JFrame {
         removeStudentFrame.hide();        
     }//GEN-LAST:event_studentRemoveCloseButtonMouseClicked
 
+    private void showCoursesButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showCoursesButtonMouseClicked
+        // TODO add your handling code here:
+        showCoursesFrame.show();
+        String[] columnNames = {"Course ID", "Course Name", "Credits", "Fees"};
+        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+        courseTable.setModel(model);        
+        
+        courseTable.getColumnModel().getColumn(0).setMaxWidth(75);
+        courseTable.getColumnModel().getColumn(3).setMaxWidth(75);
+        courseTable.getColumnModel().getColumn(2).setMaxWidth(50);
+        courseTable.getTableHeader().setReorderingAllowed(false);
+        model = (DefaultTableModel) courseTable.getModel();
+        model.setRowCount(0);
+        
+        try
+        {
+            statement = conn.createStatement();
+            rs = statement.executeQuery("SELECT * FROM COURSES");
+            while(rs.next())
+            {
+                model.addRow(new Object[]{(rs.getString("COURSE_ID")), (rs.getString("NAME")), (rs.getInt("CREDITS")), (rs.getFloat("PRICE"))});
+            }
+        }
+        catch(SQLException e)
+        {
+            System.out.println("Data not found.");
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_showCoursesButtonMouseClicked
+
+    private void showMajorsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showMajorsButtonActionPerformed
+        // TODO add your handling code here:
+        String[] columnNames = {"Degree Name", "Major", "Courses Associated"};
+        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+        courseTable.setModel(model);                      
+        courseTable.getTableHeader().setReorderingAllowed(false);
+        
+        
+        model = (DefaultTableModel) courseTable.getModel();
+        model.setRowCount(0);
+        
+        try
+        {
+            statement = conn.createStatement();
+            rs = statement.executeQuery("SELECT * FROM MAJOR");
+            while(rs.next())
+            {
+                model.addRow(new Object[] {(rs.getString("DEGREE")), (rs.getString("MAJOR_NAME")), (rs.getString("COURSES_ASSOC")) });
+            }
+            
+        }
+        catch(SQLException e)
+        {
+            
+        }
+    }//GEN-LAST:event_showMajorsButtonActionPerformed
+
+    private void showFacultiesButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showFacultiesButtonMouseClicked
+        // TODO add your handling code here:
+        String[] columnNames = {"Faculty Name", "Location", "Courses Associated"};
+        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+        courseTable.setModel(model);                      
+        courseTable.getTableHeader().setReorderingAllowed(false);
+        courseTable.getColumnModel().getColumn(1).setMaxWidth(75);
+        courseTable.getColumnModel().getColumn(1).setMinWidth(75);
+        
+        model = (DefaultTableModel) courseTable.getModel();
+        model.setRowCount(0);
+        
+        try
+        {
+            statement = conn.createStatement();
+            rs = statement.executeQuery("SELECT * FROM FACULTY");
+            while(rs.next())
+            {
+                model.addRow(new Object[] {(rs.getString("NAME")), (rs.getString("LOCATION")), (rs.getString("COURSES_ASSOC")) });
+            }
+            
+        }
+        catch(SQLException e)
+        {
+            
+        }
+        
+    }//GEN-LAST:event_showFacultiesButtonMouseClicked
+
+    private void returntoCoursesButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_returntoCoursesButtonMouseClicked
+        // TODO add your handling code here:
+        
+        String[] columnNames = {"Course ID", "Course Name", "Credits", "Fees"};
+        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+        courseTable.setModel(model);        
+        
+        courseTable.getColumnModel().getColumn(0).setMaxWidth(75);
+        courseTable.getColumnModel().getColumn(3).setMaxWidth(75);
+        courseTable.getColumnModel().getColumn(2).setMaxWidth(50);
+        courseTable.getTableHeader().setReorderingAllowed(false);
+        model = (DefaultTableModel) courseTable.getModel();
+        model.setRowCount(0);
+        
+        try
+        {
+            statement = conn.createStatement();
+            rs = statement.executeQuery("SELECT * FROM COURSES");
+            while(rs.next())
+            {
+                model.addRow(new Object[]{(rs.getString("COURSE_ID")), (rs.getString("NAME")), (rs.getInt("CREDITS")), (rs.getFloat("PRICE"))});
+            }
+        }
+        catch(SQLException e)
+        {
+            System.out.println("Data not found.");
+            e.printStackTrace();
+        }
+        
+        
+    }//GEN-LAST:event_returntoCoursesButtonMouseClicked
+
+    private void closeShowCoursesButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeShowCoursesButtonMouseClicked
+        // TODO add your handling code here:
+        showCoursesFrame.hide();
+    }//GEN-LAST:event_closeShowCoursesButtonMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -1109,9 +1349,11 @@ public class managementSystemInterface extends javax.swing.JFrame {
     private javax.swing.JFrame addStudentFrame;
     private javax.swing.JButton applyEditButton;
     private javax.swing.JButton closeEditStudentsButton;
+    private javax.swing.JButton closeShowCoursesButton;
     private javax.swing.JButton closeStudentList;
     private javax.swing.JLabel courseSelectLabel;
     private javax.swing.JComboBox<String> courseSelectorCBox;
+    private javax.swing.JTable courseTable;
     private javax.swing.JTextField editAttendance;
     private javax.swing.JLabel editAttendanceLabel;
     private javax.swing.JTextField editMark1;
@@ -1134,6 +1376,7 @@ public class managementSystemInterface extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTextField lastNameBox;
     private javax.swing.JLabel lastNameLabel;
     private javax.swing.JLabel managementSystemWelcome;
@@ -1146,7 +1389,12 @@ public class managementSystemInterface extends javax.swing.JFrame {
     private javax.swing.JTable removeStudentTable;
     private javax.swing.JLabel removeStudentWelcomeLabel;
     private javax.swing.JLabel removeStudentWelcomeLabel02;
+    private javax.swing.JButton returntoCoursesButton;
     private javax.swing.JButton searchStudentsButton;
+    private javax.swing.JButton showCoursesButton;
+    private javax.swing.JFrame showCoursesFrame;
+    private javax.swing.JButton showFacultiesButton;
+    private javax.swing.JButton showMajorsButton;
     private javax.swing.JButton showStudents;
     private javax.swing.JButton studentApplyRemoveButton;
     private javax.swing.JLabel studentIDLabel;

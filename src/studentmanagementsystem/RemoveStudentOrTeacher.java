@@ -114,24 +114,14 @@ public class RemoveStudentOrTeacher {
                 pw.print(students.get(i).getId() + ",");
                 pw.print(students.get(i).getFirstName() + ",");
                 pw.print(students.get(i).getLastName() + ",");
-                pw.print(students.get(i).getAssessmentMarks().getCourse().getCode() + ",");
+                
                 
                 pw2.print(studentAttendance.get(i).getId() + ",");
                 pw2.print(studentAttendance.get(i).getFirstName() + ",");
                 pw2.print(studentAttendance.get(i).getLastName() + ",");               
                 pw2.print(studentAttendance.get(i).getAttendance());
                 
-                for(int j = 0; j < students.get(i).getAssessmentMarks().getMarks().size(); j++)
-                {
-                    if(j != students.get(i).getAssessmentMarks().getMarks().size() - 1)
-                    {
-                        pw.print(students.get(i).getAssessmentMarks().getMarks().get(j) + ",");
-                    }
-                    else
-                    {
-                        pw.print(students.get(i).getAssessmentMarks().getMarks().get(j) + "");
-                    }                   
-                }                               
+                                              
                 pw.println();
                 pw2.println();
             }
@@ -245,8 +235,8 @@ public class RemoveStudentOrTeacher {
                 pw.print(teachers.get(i).getId() + ",");
                 pw.print(teachers.get(i).getFirstName() + ",");
                 pw.print(teachers.get(i).getLastName() + ",");
-                pw.print(teachers.get(i).getPosition().ordinal() + ",");                                
-                pw.println(teachers.get(i).getCourse().getCode());
+                pw.print(teachers.get(i).getPosition().ordinal() + ",");                               
+               
             }
             
             pw.flush();

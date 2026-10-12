@@ -32,9 +32,9 @@ public class StudentsDB {
         try
         {
             statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT * FROM STUDENT");
+            rs = statement.executeQuery("SELECT * FROM STUDENT");
             if(rs.next()) {
-                System.out.println("Tables exits, checks passed...");            
+                System.out.println("Tables exist, checks passed...");            
                 return;
             }
         }
@@ -84,11 +84,7 @@ public class StudentsDB {
     public void editStudentData(int id, String course, int mark1, int mark2, int mark3, int mark4, int attendance)            
     {
         String marks = "";
-        //students.get(i).getAssessmentMarks().getCourse().getCode().equals("COMP500") || 
-        //students.get(i).getAssessmentMarks().getCourse().getCode().equals("COMP501") || 
-        //students.get(i).getAssessmentMarks().getCourse().getCode().equals("ACCT703") ||
-        //students.get(i).getAssessmentMarks().getCourse().getCode().equals("DESN711") || 
-        //students.get(i).getAssessmentMarks().getCourse().getCode().equals("DIGD511")
+        
         try
         {
             statement = conn.createStatement();   
