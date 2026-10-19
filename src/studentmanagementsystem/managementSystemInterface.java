@@ -37,6 +37,7 @@ public class managementSystemInterface extends javax.swing.JFrame {
         editStudentFrame.setLocationRelativeTo(null);
         removeStudentFrame.setLocationRelativeTo(null);
         showCoursesFrame.setLocationRelativeTo(null);
+        showTeachersFrame.setLocationRelativeTo(null);
         
         
     }
@@ -106,6 +107,24 @@ public class managementSystemInterface extends javax.swing.JFrame {
         showMajorsButton = new javax.swing.JButton();
         returntoCoursesButton = new javax.swing.JButton();
         closeShowCoursesButton = new javax.swing.JButton();
+        showTeachersFrame = new javax.swing.JFrame();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        teacherTable = new javax.swing.JTable();
+        showTeachersCloseButton = new javax.swing.JButton();
+        addTeacherFrame = new javax.swing.JFrame();
+        addTeacherWelcomeLabel = new javax.swing.JLabel();
+        teacherIdLabel = new javax.swing.JLabel();
+        teacherFirstNameLabel = new javax.swing.JLabel();
+        teacherLastNameLabel = new javax.swing.JLabel();
+        teacherFirstNameBox = new javax.swing.JTextField();
+        teacherLastNameBox = new javax.swing.JTextField();
+        addTeacherPositionLabel = new javax.swing.JLabel();
+        addTeacherPositionCBox = new javax.swing.JComboBox<>();
+        addTeacherTeachingLabel = new javax.swing.JLabel();
+        teacherCourseCBox = new javax.swing.JComboBox<>();
+        closeAddTeacherButton = new javax.swing.JButton();
+        applyAddTeacherButton = new javax.swing.JButton();
+        addTeacherWelcomeLabel02 = new javax.swing.JLabel();
         showStudents = new javax.swing.JButton();
         managementSystemWelcome = new javax.swing.JLabel();
         editStudentButton = new javax.swing.JButton();
@@ -113,6 +132,8 @@ public class managementSystemInterface extends javax.swing.JFrame {
         addStudentButton = new javax.swing.JButton();
         removeStudentButton = new javax.swing.JButton();
         showCoursesButton = new javax.swing.JButton();
+        showTeachersButton = new javax.swing.JButton();
+        addTeacherButton = new javax.swing.JButton();
 
         studentList.setTitle("Student Table");
         studentList.setMinimumSize(new java.awt.Dimension(678, 420));
@@ -615,6 +636,152 @@ public class managementSystemInterface extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        showTeachersFrame.setMinimumSize(new java.awt.Dimension(563, 265));
+
+        teacherTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "ID", "First Name", "Last Name", "Position", "Teaching"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane5.setViewportView(teacherTable);
+        if (teacherTable.getColumnModel().getColumnCount() > 0) {
+            teacherTable.getColumnModel().getColumn(0).setMaxWidth(50);
+            teacherTable.getColumnModel().getColumn(1).setMaxWidth(100);
+            teacherTable.getColumnModel().getColumn(2).setMaxWidth(100);
+            teacherTable.getColumnModel().getColumn(3).setMaxWidth(125);
+            teacherTable.getColumnModel().getColumn(4).setMaxWidth(80);
+        }
+
+        showTeachersCloseButton.setText("Close");
+        showTeachersCloseButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                showTeachersCloseButtonMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout showTeachersFrameLayout = new javax.swing.GroupLayout(showTeachersFrame.getContentPane());
+        showTeachersFrame.getContentPane().setLayout(showTeachersFrameLayout);
+        showTeachersFrameLayout.setHorizontalGroup(
+            showTeachersFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(showTeachersFrameLayout.createSequentialGroup()
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(showTeachersCloseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 21, Short.MAX_VALUE))
+        );
+        showTeachersFrameLayout.setVerticalGroup(
+            showTeachersFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(showTeachersFrameLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(showTeachersCloseButton))
+        );
+
+        addTeacherFrame.setMinimumSize(new java.awt.Dimension(470, 300));
+        addTeacherFrame.setResizable(false);
+
+        addTeacherWelcomeLabel.setText("Welcome to the add teacher window, please fill out the form and press");
+
+        teacherIdLabel.setText("The new teacher's automated ID is: ");
+
+        teacherFirstNameLabel.setText("First Name:");
+
+        teacherLastNameLabel.setText("Last Name: ");
+
+        addTeacherPositionLabel.setText("Position:");
+
+        addTeacherPositionCBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Teacher Assistant", "Lecturer", "Senior Lecturer" }));
+
+        addTeacherTeachingLabel.setText("Teaching:");
+
+        teacherCourseCBox.setMaximumRowCount(5);
+        teacherCourseCBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ACCT703", "BUSS512", "BUSS514", "COMP500", "COMP501", "COMP503", "DESN511", "DESN711", "DIGD511" }));
+
+        closeAddTeacherButton.setText("Close");
+        closeAddTeacherButton.addActionListener(this::closeAddTeacherButtonActionPerformed);
+
+        applyAddTeacherButton.setText("Add");
+
+        addTeacherWelcomeLabel02.setText("add!");
+
+        javax.swing.GroupLayout addTeacherFrameLayout = new javax.swing.GroupLayout(addTeacherFrame.getContentPane());
+        addTeacherFrame.getContentPane().setLayout(addTeacherFrameLayout);
+        addTeacherFrameLayout.setHorizontalGroup(
+            addTeacherFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(addTeacherFrameLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(addTeacherFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(addTeacherWelcomeLabel)
+                    .addGroup(addTeacherFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(addTeacherFrameLayout.createSequentialGroup()
+                            .addGroup(addTeacherFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(teacherIdLabel, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, addTeacherFrameLayout.createSequentialGroup()
+                                    .addGroup(addTeacherFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(teacherFirstNameLabel)
+                                        .addComponent(teacherLastNameLabel))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(addTeacherFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(teacherLastNameBox, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
+                                        .addComponent(teacherFirstNameBox))))
+                            .addGap(18, 18, 18)
+                            .addGroup(addTeacherFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(addTeacherFrameLayout.createSequentialGroup()
+                                    .addComponent(addTeacherPositionLabel)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(addTeacherPositionCBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(addTeacherFrameLayout.createSequentialGroup()
+                                    .addComponent(addTeacherTeachingLabel)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(teacherCourseCBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(addTeacherFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(applyAddTeacherButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
+                            .addComponent(closeAddTeacherButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(addTeacherWelcomeLabel02))
+                .addContainerGap(36, Short.MAX_VALUE))
+        );
+        addTeacherFrameLayout.setVerticalGroup(
+            addTeacherFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(addTeacherFrameLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(addTeacherWelcomeLabel)
+                .addGap(3, 3, 3)
+                .addComponent(addTeacherWelcomeLabel02)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(teacherIdLabel)
+                .addGap(18, 18, 18)
+                .addGroup(addTeacherFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(teacherFirstNameLabel)
+                    .addComponent(teacherFirstNameBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addTeacherPositionLabel)
+                    .addComponent(addTeacherPositionCBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
+                .addGroup(addTeacherFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(teacherLastNameLabel)
+                    .addComponent(teacherLastNameBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addTeacherTeachingLabel)
+                    .addComponent(teacherCourseCBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
+                .addComponent(applyAddTeacherButton)
+                .addGap(18, 18, 18)
+                .addComponent(closeAddTeacherButton)
+                .addContainerGap())
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("AUT Student Management System");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -662,6 +829,20 @@ public class managementSystemInterface extends javax.swing.JFrame {
             }
         });
 
+        showTeachersButton.setText("Show Teachers");
+        showTeachersButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                showTeachersButtonMouseClicked(evt);
+            }
+        });
+
+        addTeacherButton.setText("Add Teacher");
+        addTeacherButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addTeacherButtonMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -676,7 +857,10 @@ public class managementSystemInterface extends javax.swing.JFrame {
                             .addComponent(editStudentButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(showStudents, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(showCoursesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(showCoursesButton, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
+                            .addComponent(showTeachersButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(addTeacherButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(managementSystemWelcome)
@@ -696,9 +880,13 @@ public class managementSystemInterface extends javax.swing.JFrame {
                     .addComponent(showStudents)
                     .addComponent(showCoursesButton))
                 .addGap(18, 18, 18)
-                .addComponent(editStudentButton)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(editStudentButton)
+                    .addComponent(showTeachersButton))
                 .addGap(18, 18, 18)
-                .addComponent(addStudentButton)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(addStudentButton)
+                    .addComponent(addTeacherButton))
                 .addGap(18, 18, 18)
                 .addComponent(removeStudentButton)
                 .addContainerGap(38, Short.MAX_VALUE))
@@ -1317,6 +1505,58 @@ public class managementSystemInterface extends javax.swing.JFrame {
         showCoursesFrame.hide();
     }//GEN-LAST:event_closeShowCoursesButtonMouseClicked
 
+    private void showTeachersButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showTeachersButtonMouseClicked
+        // TODO add your handling code here:
+        showTeachersFrame.show();
+        
+        DefaultTableModel model = (DefaultTableModel) teacherTable.getModel();
+        model.setRowCount(0);
+        
+        try
+        {
+            statement = conn.createStatement();
+            rs = statement.executeQuery("SELECT * FROM TEACHER");
+            while(rs.next())
+            {
+                model.addRow(new Object[]{(rs.getInt("ID")), (rs.getString("FIRST_NAME")), (rs.getString("LAST_NAME")), (rs.getString("POSITION")), (rs.getString("COURSE_ID"))});
+            }
+        }
+        catch(SQLException e)
+        {
+            System.out.println("Data not found.");
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_showTeachersButtonMouseClicked
+
+    private void showTeachersCloseButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showTeachersCloseButtonMouseClicked
+        // TODO add your handling code here:
+        showTeachersFrame.dispose();
+    }//GEN-LAST:event_showTeachersCloseButtonMouseClicked
+
+    private void addTeacherButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addTeacherButtonMouseClicked
+        // TODO add your handling code here:
+        addTeacherFrame.show();
+        int id = 10;
+        try
+        {
+            statement = conn.createStatement();
+            rs = statement.executeQuery("SELECT * FROM TEACHER");
+            while(rs.next())
+                id+=10;            
+            
+        }
+        catch (SQLException e)
+        {
+            
+        }
+        
+        teacherIdLabel.setText(teacherIdLabel.getText() + " " + id);
+    }//GEN-LAST:event_addTeacherButtonMouseClicked
+
+    private void closeAddTeacherButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeAddTeacherButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_closeAddTeacherButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1347,7 +1587,16 @@ public class managementSystemInterface extends javax.swing.JFrame {
     private javax.swing.JButton addStudentButton;
     private javax.swing.JButton addStudentCloseButton;
     private javax.swing.JFrame addStudentFrame;
+    private javax.swing.JButton addTeacherButton;
+    private javax.swing.JFrame addTeacherFrame;
+    private javax.swing.JComboBox<String> addTeacherPositionCBox;
+    private javax.swing.JLabel addTeacherPositionLabel;
+    private javax.swing.JLabel addTeacherTeachingLabel;
+    private javax.swing.JLabel addTeacherWelcomeLabel;
+    private javax.swing.JLabel addTeacherWelcomeLabel02;
+    private javax.swing.JButton applyAddTeacherButton;
     private javax.swing.JButton applyEditButton;
+    private javax.swing.JButton closeAddTeacherButton;
     private javax.swing.JButton closeEditStudentsButton;
     private javax.swing.JButton closeShowCoursesButton;
     private javax.swing.JButton closeStudentList;
@@ -1377,6 +1626,7 @@ public class managementSystemInterface extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTextField lastNameBox;
     private javax.swing.JLabel lastNameLabel;
     private javax.swing.JLabel managementSystemWelcome;
@@ -1396,6 +1646,9 @@ public class managementSystemInterface extends javax.swing.JFrame {
     private javax.swing.JButton showFacultiesButton;
     private javax.swing.JButton showMajorsButton;
     private javax.swing.JButton showStudents;
+    private javax.swing.JButton showTeachersButton;
+    private javax.swing.JButton showTeachersCloseButton;
+    private javax.swing.JFrame showTeachersFrame;
     private javax.swing.JButton studentApplyRemoveButton;
     private javax.swing.JLabel studentIDLabel;
     private javax.swing.JFrame studentList;
@@ -1403,6 +1656,13 @@ public class managementSystemInterface extends javax.swing.JFrame {
     private javax.swing.JButton studentRemoveCloseButton;
     private javax.swing.JButton studentSearchRemoveButton;
     private javax.swing.JTable studentTable;
+    private javax.swing.JComboBox<String> teacherCourseCBox;
+    private javax.swing.JTextField teacherFirstNameBox;
+    private javax.swing.JLabel teacherFirstNameLabel;
+    private javax.swing.JLabel teacherIdLabel;
+    private javax.swing.JTextField teacherLastNameBox;
+    private javax.swing.JLabel teacherLastNameLabel;
+    private javax.swing.JTable teacherTable;
     private javax.swing.JButton viewMarks;
     private javax.swing.JButton viewStudentGrades;
     private javax.swing.JLabel welcomeAddStudentLabel;
