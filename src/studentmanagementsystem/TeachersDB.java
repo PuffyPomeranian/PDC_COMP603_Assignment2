@@ -67,4 +67,19 @@ public class TeachersDB {
         }
     }
     
+    public void addTeacher(int id, String firstName, String lastName, String position, String course)
+    {
+        
+        //This method inserts the new teacher from the add teacher window into the database for Teachers
+        try
+        {
+            statement = conn.createStatement();
+            statement.executeUpdate("INSERT INTO TEACHER VALUES("+id+", '"+firstName+"', '"+lastName+"', '"+position+"', '"+course+"')");
+        }
+        catch(SQLException e)
+        {
+            System.out.println("Error adding teacher");
+        }
+    }
+    
 }
