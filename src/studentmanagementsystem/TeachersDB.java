@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -79,6 +80,20 @@ public class TeachersDB {
         catch(SQLException e)
         {
             System.out.println("Error adding teacher");
+        }
+    }
+    
+    public void removeTeacher(int id)
+    {
+        try
+        {
+           statement = conn.createStatement();
+           statement.executeUpdate("DELETE FROM TEACHER WHERE ID = "+id);
+           JOptionPane.showConfirmDialog(null, "Teacher has been removed.","Information",JOptionPane.DEFAULT_OPTION);
+        }
+        catch(SQLException e)
+        {
+            System.out.println("Error removing teacher");
         }
     }
     

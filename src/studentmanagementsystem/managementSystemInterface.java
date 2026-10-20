@@ -4,6 +4,7 @@
  */
 package studentmanagementsystem;
 
+import java.awt.event.WindowEvent;
 import java.sql.ResultSet;
 import java.sql.Connection;
 import java.sql.Statement;
@@ -39,6 +40,7 @@ public class managementSystemInterface extends javax.swing.JFrame {
         showCoursesFrame.setLocationRelativeTo(null);
         showTeachersFrame.setLocationRelativeTo(null);
         addTeacherFrame.setLocationRelativeTo(null);
+        removeTeacherFrame.setLocationRelativeTo(null);
         
         
     }
@@ -134,8 +136,8 @@ public class managementSystemInterface extends javax.swing.JFrame {
         removeTeacherIDSearch = new javax.swing.JButton();
         jScrollPane6 = new javax.swing.JScrollPane();
         removeTeacherTable = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        removeTeacherCloseButton = new javax.swing.JButton();
+        removeTeacherRemovalButton = new javax.swing.JButton();
         showStudents = new javax.swing.JButton();
         managementSystemWelcome = new javax.swing.JLabel();
         editStudentButton = new javax.swing.JButton();
@@ -713,7 +715,6 @@ public class managementSystemInterface extends javax.swing.JFrame {
 
         addTeacherFrame.setTitle("Add Teacher");
         addTeacherFrame.setMinimumSize(new java.awt.Dimension(470, 300));
-        addTeacherFrame.setPreferredSize(new java.awt.Dimension(470, 300));
         addTeacherFrame.setResizable(false);
 
         addTeacherWelcomeLabel.setText("Welcome to the add teacher window, please fill out the form and press");
@@ -828,6 +829,11 @@ public class managementSystemInterface extends javax.swing.JFrame {
         removeTeacherFrame.getContentPane().add(teacherIdBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 62, 71, -1));
 
         removeTeacherIDSearch.setText("Search");
+        removeTeacherIDSearch.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                removeTeacherIDSearchMouseClicked(evt);
+            }
+        });
         removeTeacherFrame.getContentPane().add(removeTeacherIDSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(115, 62, 90, 20));
 
         removeTeacherTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -842,11 +848,16 @@ public class managementSystemInterface extends javax.swing.JFrame {
 
         removeTeacherFrame.getContentPane().add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 103, 375, 51));
 
-        jButton1.setText("Close");
-        removeTeacherFrame.getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(284, 215, 97, -1));
+        removeTeacherCloseButton.setText("Close");
+        removeTeacherFrame.getContentPane().add(removeTeacherCloseButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(284, 215, 97, -1));
 
-        jButton2.setText("Remove");
-        removeTeacherFrame.getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(284, 180, 97, -1));
+        removeTeacherRemovalButton.setText("Remove");
+        removeTeacherRemovalButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                removeTeacherRemovalButtonMouseClicked(evt);
+            }
+        });
+        removeTeacherFrame.getContentPane().add(removeTeacherRemovalButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(284, 180, 97, -1));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("AUT Student Management System");
@@ -917,6 +928,11 @@ public class managementSystemInterface extends javax.swing.JFrame {
         });
 
         closeManagementSystemButton.setText("Close");
+        closeManagementSystemButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                closeManagementSystemButtonMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -945,8 +961,8 @@ public class managementSystemInterface extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(116, 116, 116)
-                .addComponent(closeManagementSystemButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(closeManagementSystemButton, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(110, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1400,29 +1416,13 @@ public class managementSystemInterface extends javax.swing.JFrame {
         int count = 0;
         if(!idEnterRemoveBox.getText().matches("[0-9]+"))
         {
+            JOptionPane.showMessageDialog(null, "You have entered an invalid ID, please use valid integers!\nFor help consult the show students table.","Warning",JOptionPane.ERROR_MESSAGE);
             return;
-        }
+        }                    
         try
-        {
+        {  
             statement = conn.createStatement();
-            rs = statement.executeQuery("SELECT ID FROM STUDENT");
-            while(rs.next())
-            {
-                count++;
-            }
-            if(Integer.parseInt(idEnterRemoveBox.getText()) > count)
-            {
-                return;
-            }
-            
-        }
-        catch(SQLException e)
-        {
-            System.out.println("Error");
-        }       
-        
-        try
-        {            
+            boolean found = false;
             rs = statement.executeQuery("SELECT * FROM STUDENT");
             while(rs.next())
             {
@@ -1430,14 +1430,17 @@ public class managementSystemInterface extends javax.swing.JFrame {
                 {                                     
                     DefaultTableModel model = (DefaultTableModel) removeStudentTable.getModel();
                     model.setRowCount(0);
+                    found = true;
                     model.addRow(new Object[] {rs.getInt("ID"), rs.getString("FIRST_NAME"), rs.getString("LAST_NAME")});
                 }
             }
+            if(!found)
+                JOptionPane.showMessageDialog(null, "You have entered an invalid ID, please use valid integers!\nFor help consult the show students table.","Warning",JOptionPane.ERROR_MESSAGE);
                 
         }
         catch(SQLException e)
         {
-                
+                System.out.println("Error!");
         }
            
         
@@ -1519,7 +1522,8 @@ public class managementSystemInterface extends javax.swing.JFrame {
         }
         catch(SQLException e)
         {
-            
+            System.out.println("Data not found.");
+            e.printStackTrace();
         }
     }//GEN-LAST:event_showMajorsButtonActionPerformed
 
@@ -1547,7 +1551,8 @@ public class managementSystemInterface extends javax.swing.JFrame {
         }
         catch(SQLException e)
         {
-            
+            System.out.println("Data not found.");
+            e.printStackTrace();
         }
         
     }//GEN-LAST:event_showFacultiesButtonMouseClicked
@@ -1635,7 +1640,8 @@ public class managementSystemInterface extends javax.swing.JFrame {
         }
         catch (SQLException e)
         {
-            
+            System.out.println("Data not found.");
+            e.printStackTrace();
         }
         
         teacherIdLabel.setText("The new Teacher's automated ID is: " + id);
@@ -1695,6 +1701,61 @@ public class managementSystemInterface extends javax.swing.JFrame {
         
         removeTeacherFrame.show();
     }//GEN-LAST:event_removeTeacherButtonMouseClicked
+
+    private void removeTeacherIDSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_removeTeacherIDSearchMouseClicked
+        // TODO add your handling code here:
+        if(!teacherIdBox.getText().matches("[0-9]+"))
+        {
+            return;
+        }            
+        DefaultTableModel model = (DefaultTableModel) removeTeacherTable.getModel();
+        model.setRowCount(0);
+        
+                
+        try
+        {
+            statement = conn.createStatement();
+            rs = statement.executeQuery("SELECT * FROM TEACHER");
+            while(rs.next())
+            {
+                if(Integer.parseInt(teacherIdBox.getText()) == rs.getInt("ID"))
+                {
+                    model.addRow(new Object[]{(rs.getInt("ID")), (rs.getString("FIRST_NAME")), (rs.getString("LAST_NAME"))});
+                }
+            }
+        }
+        catch(SQLException e) 
+        {
+            System.out.println("Data not found.");
+            e.printStackTrace();
+        }
+        
+        
+    }//GEN-LAST:event_removeTeacherIDSearchMouseClicked
+
+    private void removeTeacherRemovalButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_removeTeacherRemovalButtonMouseClicked
+        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel) removeTeacherTable.getModel();
+        if(model.getValueAt(0, 0) == null)
+        {
+            JOptionPane.showMessageDialog(null, "The table is empty, no teacher detected for removal!","Warning",JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        int id = (int) model.getValueAt(0, 0);        
+        int yes_or_no = JOptionPane.showConfirmDialog(null, "Are you sure you want to remove this teacher?","Warning",JOptionPane.YES_NO_OPTION);
+        if(yes_or_no == JOptionPane.YES_OPTION)
+        {
+            TeachersDB db = new TeachersDB();
+            db.removeTeacher(id);
+        }
+    }//GEN-LAST:event_removeTeacherRemovalButtonMouseClicked
+
+    private void closeManagementSystemButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeManagementSystemButtonMouseClicked
+        // TODO add your handling code here:
+        this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+        
+        
+    }//GEN-LAST:event_closeManagementSystemButtonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -1761,8 +1822,6 @@ public class managementSystemInterface extends javax.swing.JFrame {
     private javax.swing.JTextField firstNameBox;
     private javax.swing.JLabel firstNameLabel;
     private javax.swing.JTextField idEnterRemoveBox;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -1782,9 +1841,11 @@ public class managementSystemInterface extends javax.swing.JFrame {
     private javax.swing.JLabel removeStudentWelcomeLabel;
     private javax.swing.JLabel removeStudentWelcomeLabel02;
     private javax.swing.JButton removeTeacherButton;
+    private javax.swing.JButton removeTeacherCloseButton;
     private javax.swing.JFrame removeTeacherFrame;
     private javax.swing.JLabel removeTeacherIDLabel;
     private javax.swing.JButton removeTeacherIDSearch;
+    private javax.swing.JButton removeTeacherRemovalButton;
     private javax.swing.JTable removeTeacherTable;
     private javax.swing.JLabel removeTeacherWelcomeLabel;
     private javax.swing.JLabel removeTeacherWelcomeLabel02;
