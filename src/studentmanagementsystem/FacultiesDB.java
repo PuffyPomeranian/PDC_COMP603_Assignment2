@@ -19,13 +19,13 @@ public class FacultiesDB {
     private final Connection conn;
     private Statement statement;
     private ResultSet rs;
-    
+    //Sets up the connection
     public FacultiesDB()
     {
         dbManager = new DBManager();
         conn = dbManager.getConnection();
     }
-    
+    //Creates the Faculty tables and inserts data, checks if the table already exists first
     public void createFacultiesTable()
     {
         try

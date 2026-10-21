@@ -18,13 +18,13 @@ public class MajorsDB {
     private final Connection conn;
     private Statement statement;
     private ResultSet rs;
-    
+    //Creates a connection to the Database
     public MajorsDB()
     {
         dbManager = new DBManager();
         conn = dbManager.getConnection();
     }
-    
+    //Creates the Major table and inserts data, makes sure the Table doesn't already exist first
     public void createMajorTables()
     {
         try
@@ -53,7 +53,7 @@ public class MajorsDB {
         }
         catch(SQLException e)
         {
-            
+            System.out.println("Error inserting into or creating table");
         }
     }
 }

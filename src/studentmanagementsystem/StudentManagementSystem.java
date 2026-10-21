@@ -4,6 +4,7 @@
  */
 package studentmanagementsystem;
 
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -22,7 +23,8 @@ public class StudentManagementSystem {
           
     
     public static void main(String[] args) {                                    
-               
+        
+        //Sets up all the databases for use in the program and shows the program
         StudentsDB sDB = new StudentsDB();
         sDB.createStudentsTable();    
         CoursesDB cDB = new CoursesDB();
@@ -35,6 +37,7 @@ public class StudentManagementSystem {
         tDB.createTeacherTable();
         managementSystemInterface mSI = new managementSystemInterface();
         mSI.show();
+        
         
     }
     

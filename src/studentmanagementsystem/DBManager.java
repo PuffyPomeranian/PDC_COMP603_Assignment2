@@ -15,17 +15,17 @@ import java.sql.Statement;
  * @author Playtech
  */
 public final class DBManager {
-    
+    //Made sure this will run natively without having to do setup
     private static final String USER_NAME = "pdc";
     private static final String PASSWORD = "pdc"; 
     private static final String URL = "jdbc:derby:StudentManagementSystemDB;create = true";
     
     Connection conn;
-    
+    //Sets up the connection constructor
     public DBManager() {
         establishConnection();
     }   
-
+    //gets the connection
     public Connection getConnection() {
         return this.conn;
     }
@@ -42,7 +42,7 @@ public final class DBManager {
             System.err.println("SQLException: " + e.getMessage());
         }
     }
-    
+    //closes the connections
     public void closeConnections() {
         if (conn != null) {
             try {

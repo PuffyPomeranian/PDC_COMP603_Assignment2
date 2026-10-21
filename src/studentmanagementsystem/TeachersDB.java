@@ -20,13 +20,13 @@ public class TeachersDB {
     private final Connection conn;
     private Statement statement;
     private ResultSet rs;
-    
+    //Sets up the connection
     public TeachersDB()
     {
         dbManager = new DBManager();
         conn = dbManager.getConnection();
     }
-    
+    //Creates the Teacher table and inserts data, if the table is already made then it returns
     public void createTeacherTable()
     {
         try
@@ -67,7 +67,8 @@ public class TeachersDB {
             
         }
     }
-    
+    //Method for adding a teacher referred from the add teacher JFrame, inherits the variables to insert
+    //Into the database
     public void addTeacher(int id, String firstName, String lastName, String position, String course)
     {
         
@@ -82,7 +83,7 @@ public class TeachersDB {
             System.out.println("Error adding teacher");
         }
     }
-    
+    //Remove teacher based on the ID entered and inherited from that JFrame
     public void removeTeacher(int id)
     {
         try

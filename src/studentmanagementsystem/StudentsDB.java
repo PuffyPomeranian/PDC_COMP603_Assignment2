@@ -21,12 +21,12 @@ public class StudentsDB {
     private final Connection conn;
     private Statement statement;
     private ResultSet rs;
-    
+    //Sets up the connection
     public StudentsDB() {
         dbManager = new DBManager();
         conn = dbManager.getConnection();
     }
-    
+    //Creates the Student tables and inserts data, if the table already made it exists
     public void createStudentsTable()
     {
         try
@@ -80,7 +80,7 @@ public class StudentsDB {
         
         
     }
-    
+    //Edits the student with data inherited from the JFrame data entered, updates database
     public void editStudentData(int id, String course, int mark1, int mark2, int mark3, int mark4, int attendance)            
     {
         String marks = "";
@@ -104,7 +104,7 @@ public class StudentsDB {
             System.out.println("Invalid Statement");            
         }               
     }
-    
+    //Adds student based on data entered into the JFrame and inherited from that form
     public void addStudent(int id, String firstName, String lastName, String course)
     {
         try
@@ -125,7 +125,7 @@ public class StudentsDB {
         }
         JOptionPane.showConfirmDialog(null, "Student has been added","Information",JOptionPane.DEFAULT_OPTION);
     }
-    
+    //Removes student based on the ID carried over from the JFrame to this method
     public void removeStudent(int id)
     {
         try
@@ -136,7 +136,7 @@ public class StudentsDB {
         }
         catch(SQLException e)
         {
-            
+            e.printStackTrace();
         }
     }
     

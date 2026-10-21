@@ -30,6 +30,8 @@ public class managementSystemInterface extends javax.swing.JFrame {
      */
     public managementSystemInterface() {
         initComponents();
+        //Initializing the JFrame for use with the Database and makes sure all JFrames are centered
+        //AI Helped me find this code
         DBManager dbManager = new DBManager();
         conn = dbManager.getConnection();
         this.setLocationRelativeTo(null);
@@ -114,6 +116,11 @@ public class managementSystemInterface extends javax.swing.JFrame {
         jScrollPane5 = new javax.swing.JScrollPane();
         teacherTable = new javax.swing.JTable();
         showTeachersCloseButton = new javax.swing.JButton();
+        showTeacherInfoLabel01 = new javax.swing.JLabel();
+        showTeacherInfoLabel02 = new javax.swing.JLabel();
+        showTeacherInfoLabel03 = new javax.swing.JLabel();
+        showTeacherInfoLabel04 = new javax.swing.JLabel();
+        showTeacherInfoLabel05 = new javax.swing.JLabel();
         addTeacherFrame = new javax.swing.JFrame();
         addTeacherWelcomeLabel = new javax.swing.JLabel();
         teacherIdLabel = new javax.swing.JLabel();
@@ -456,6 +463,7 @@ public class managementSystemInterface extends javax.swing.JFrame {
 
         removeStudentFrame.setTitle("Remove Student");
         removeStudentFrame.setMinimumSize(new java.awt.Dimension(455, 273));
+        removeStudentFrame.setResizable(false);
 
         removeStudentWelcomeLabel.setText("Welcome to the Remove Student Window! Please start by entering the ID");
 
@@ -656,7 +664,7 @@ public class managementSystemInterface extends javax.swing.JFrame {
         );
 
         showTeachersFrame.setTitle("Show All Teachers");
-        showTeachersFrame.setMinimumSize(new java.awt.Dimension(563, 265));
+        showTeachersFrame.setMinimumSize(new java.awt.Dimension(583, 265));
         showTeachersFrame.setResizable(false);
 
         teacherTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -694,6 +702,16 @@ public class managementSystemInterface extends javax.swing.JFrame {
             }
         });
 
+        showTeacherInfoLabel01.setText("Information Shown:");
+
+        showTeacherInfoLabel02.setText("Shows all Teachers");
+
+        showTeacherInfoLabel03.setText("their positions, and");
+
+        showTeacherInfoLabel04.setText("the courses they");
+
+        showTeacherInfoLabel05.setText("teach.");
+
         javax.swing.GroupLayout showTeachersFrameLayout = new javax.swing.GroupLayout(showTeachersFrame.getContentPane());
         showTeachersFrame.getContentPane().setLayout(showTeachersFrameLayout);
         showTeachersFrameLayout.setHorizontalGroup(
@@ -701,15 +719,31 @@ public class managementSystemInterface extends javax.swing.JFrame {
             .addGroup(showTeachersFrameLayout.createSequentialGroup()
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(showTeachersCloseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 21, Short.MAX_VALUE))
+                .addGroup(showTeachersFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(showTeachersCloseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(showTeacherInfoLabel01)
+                    .addComponent(showTeacherInfoLabel02)
+                    .addComponent(showTeacherInfoLabel03)
+                    .addComponent(showTeacherInfoLabel04)
+                    .addComponent(showTeacherInfoLabel05))
+                .addGap(0, 20, Short.MAX_VALUE))
         );
         showTeachersFrameLayout.setVerticalGroup(
             showTeachersFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(showTeachersFrameLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(showTeachersCloseButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(28, 28, 28)
+                .addComponent(showTeacherInfoLabel01)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(showTeacherInfoLabel02)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(showTeacherInfoLabel03)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(showTeacherInfoLabel04)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(showTeacherInfoLabel05)
+                .addContainerGap(104, Short.MAX_VALUE))
             .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
 
@@ -816,6 +850,7 @@ public class managementSystemInterface extends javax.swing.JFrame {
         );
 
         removeTeacherFrame.setMinimumSize(new java.awt.Dimension(412, 285));
+        removeTeacherFrame.setResizable(false);
         removeTeacherFrame.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         removeTeacherWelcomeLabel.setText("Welcome to the Remove Teacher window, enter in the Teacher ID");
@@ -849,6 +884,11 @@ public class managementSystemInterface extends javax.swing.JFrame {
         removeTeacherFrame.getContentPane().add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 103, 375, 51));
 
         removeTeacherCloseButton.setText("Close");
+        removeTeacherCloseButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                removeTeacherCloseButtonMouseClicked(evt);
+            }
+        });
         removeTeacherFrame.getContentPane().add(removeTeacherCloseButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(284, 215, 97, -1));
 
         removeTeacherRemovalButton.setText("Remove");
@@ -997,9 +1037,12 @@ public class managementSystemInterface extends javax.swing.JFrame {
 
     private void showStudentsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showStudentsMouseClicked
         // TODO add your handling code here:
+        //This block of code sets up the JFrame Table for use 
+        //AI Helped me find the code for grabbing tables and adding rows to them
         studentList.show();      
         DefaultTableModel model = (DefaultTableModel) studentTable.getModel();
         model.setRowCount(0);
+        //This block grabs data from the StudentsDB Database and puts it into the Table
         try
         {
             statement = conn.createStatement();
@@ -1022,10 +1065,12 @@ public class managementSystemInterface extends javax.swing.JFrame {
 
     private void viewStudentGradesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewStudentGradesMouseClicked
         // TODO add your handling code here:
+        //Code to set up the JFrame Table and to set up for showing the grades of each student
         int grade = 0;
         String overallGrade = "FAIL";
         DefaultTableModel model = (DefaultTableModel) studentTable.getModel();
         model.setRowCount(0);
+        //Puts the data from the StudentsDB Database into the JFrame Table for showing grades
         try
         {
             statement = conn.createStatement();
@@ -1091,9 +1136,11 @@ public class managementSystemInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_viewStudentGradesMouseClicked
 
     private void viewMarksMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewMarksMouseClicked
-        // TODO add your handling code here:
+
+        //Sets up a JFrame Tables
         DefaultTableModel model = (DefaultTableModel) studentTable.getModel();
         model.setRowCount(0);
+        //Puts the data from the StudentsDB Database into the JFrame Table for showing marks
         try
         {
             statement = conn.createStatement();
@@ -1111,12 +1158,13 @@ public class managementSystemInterface extends javax.swing.JFrame {
 
     private void closeStudentListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeStudentListMouseClicked
         // TODO add your handling code here:
-        
+        //Closes the Show Students list
         studentList.hide();
     }//GEN-LAST:event_closeStudentListMouseClicked
 
     private void editStudentButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editStudentButtonMouseClicked
         // TODO add your handling code here:
+        //Sets up the edit student Frame for use, makes everything blank and ready for a new input
         editStudentFrame.show();
         enterStudentID.setText("");
         editMark1.setText("");
@@ -1138,13 +1186,15 @@ public class managementSystemInterface extends javax.swing.JFrame {
 
     private void searchStudentsButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchStudentsButtonMouseClicked
         // TODO add your handling code here:  
+        //If it isn't an integer it warns the user that it needs to be a valid ID for search (an int) 
         int count = 0;
         if(!enterStudentID.getText().matches("[0-9]+"))
         {
+            JOptionPane.showMessageDialog(null, "Warning! ID needs to be an integer!");
             return;
         }
-        System.out.println(enterStudentID.getText());
         
+        //Finds the id and makes sure the id is valid and not greater than what is listed or just zero
         try
         {
             statement = conn.createStatement();
@@ -1153,16 +1203,19 @@ public class managementSystemInterface extends javax.swing.JFrame {
             {
                 count++;
             }
-            if(Integer.parseInt(enterStudentID.getText()) > count)
+            if(Integer.parseInt(enterStudentID.getText()) > count || Integer.parseInt(enterStudentID.getText()) == 0)
             {
+                JOptionPane.showMessageDialog(null, "Warning! ID needs to be a valid integer. Refer to the Show Students table for help!");
                 return;
             }
             
         }
         catch(SQLException e)
         {
-            
+            e.printStackTrace();
         }
+        //When you find the student mark up their current course with valid marks for said 
+        //course and put them into the labels, that's what this block of code is for
         try
         {
             statement = conn.createStatement();
@@ -1217,54 +1270,52 @@ public class managementSystemInterface extends javax.swing.JFrame {
 
     private void applyEditButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_applyEditButtonMouseClicked
         // TODO add your handling code here:
+        //Sets up the JFrame Table so it can refer all the info later
         DefaultTableModel model = (DefaultTableModel) editStudentTable.getModel();
-        if(model.getValueAt(0, 0) == null)
+        if(model.getRowCount() == 0)
         {
+            JOptionPane.showMessageDialog(this.editStudentFrame, "Warning! No student loaded into the table,\nload a student in using the ID search box! Refer to the Show Students table for help on ID's");
             return;
         }
+        //Sets everything up for the edit
         String idString = model.getValueAt(0, 0).toString();
         int id = Integer.parseInt(idString);
         String course = model.getValueAt(0, 3).toString();        
         int mark1, mark2, mark3, mark4, attendance = 0;
-        
+        //If mark 4 isn't within a course or left blank then make it 0 so it can pass the rest of the code block
         if(editMark4.getText().equals(""))
         {
             mark4 = 0;
             editMark4.setText("0");
         }
-                
+           //Makes sure the marks are numbers and puts them into their own allocated ints      
         if(!editMark1.getText().matches("[0-9]+") || !editMark2.getText().matches("[0-9]+") || !editMark3.getText().matches("[0-9]+") || !editMark4.getText().matches("[0-9]+"))
         {
+            JOptionPane.showMessageDialog(null, "Warning! Mark edits need to be within the established ranges of the /? provided (e.g. 20/30)");
             return;
-        }
+        }        
         else
         {
             mark1 = Integer.parseInt(editMark1.getText()); 
             mark2 = Integer.parseInt(editMark2.getText()); 
             mark3 = Integer.parseInt(editMark3.getText());
-            mark4 = Integer.parseInt(editMark4.getText()); 
-            if(Integer.parseInt(editMark1.getText()) > 100)
-                mark1 = 0;
-            if(Integer.parseInt(editMark2.getText()) > 100)
-                mark2 = 0;
-            if(Integer.parseInt(editMark3.getText()) > 100)
-                mark3 = 0;
-            if(Integer.parseInt(editMark4.getText()) > 100)
-                mark4 = 0;
-            
-            
+            mark4 = Integer.parseInt(editMark4.getText());                                     
         }
+        //If editAttendance stays blank then keep the previous attendance
         if(editAttendance.getText().equals(""))
         {
             String convertAttendance = model.getValueAt(0, 5).toString();
             convertAttendance = convertAttendance.replace("%", "").trim();
-            System.out.println(convertAttendance);
+            //System.out.println(convertAttendance);
             attendance = Integer.parseInt(convertAttendance);            
         }
+        //If it isn't a number then tell the user that what they put in is invalid
         else if(!editAttendance.getText().matches("[0-9]+"))
         {
+            JOptionPane.showMessageDialog(null, "Warning! Attendance % needs to be an integer within the range of 0-100!");
             return;
         }
+        //If you put in anything greater than 100 then it defaults to 100
         if(editAttendance.getText().matches("[0-9]+"))
         {
             attendance = Integer.parseInt(editAttendance.getText());
@@ -1273,6 +1324,8 @@ public class managementSystemInterface extends javax.swing.JFrame {
                 attendance = 100;
             }
         }
+        //This long block of if/elseif/else... checks the selected 
+        //student's course to what the max marks are and tailors the labels and everything else accordingly
         if(course.equals("COMP500") || course.equals("COMP501") || course.equals("ACCT703") || course.equals("DESN711") || course.equals("DIGD511"))
         {             
             if(mark1 > 30 || mark2 > 30 || mark3 > 40)
@@ -1305,6 +1358,7 @@ public class managementSystemInterface extends javax.swing.JFrame {
                 return;
             }            
         }
+        //Carries all the information provided into the editStudentData Database method in StudentsDB
         StudentsDB sdb = new StudentsDB();
         sdb.editStudentData(id, course, mark1, mark2, mark3, mark4, attendance);
         
@@ -1319,10 +1373,12 @@ public class managementSystemInterface extends javax.swing.JFrame {
 
     private void addStudentButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addStudentButtonMouseClicked
         // TODO add your handling code here:
+        //Shows the frame and resets all the info ready for a new addition
         addStudentFrame.show();
         firstNameBox.setText("");
         lastNameBox.setText("");
         courseSelectorCBox.setSelectedIndex(0);
+        //This block of code auto generates an id for the new student to be added.
         int count = 1;
         try
         {
@@ -1337,7 +1393,8 @@ public class managementSystemInterface extends javax.swing.JFrame {
         }
         catch (SQLException e)
         {
-            
+            System.out.println("Error reading in new ID");
+            e.printStackTrace();
         }
         
     }//GEN-LAST:event_addStudentButtonMouseClicked
@@ -1369,14 +1426,22 @@ public class managementSystemInterface extends javax.swing.JFrame {
         }
         catch (SQLException e)
         {
-
+            e.printStackTrace();
         }
+        //This whole block of code checks that the names are both valid
+        boolean invalid = false;
         if(!firstName.matches("[a-zA-Z\\s-']+") || firstName.length() < 2)
         {
-            return;
+            invalid = true;            
         }
         if(!lastName.matches("[a-zA-Z\\s-']+") || lastName.length() < 2)
         {
+            invalid = true;            
+        }
+        //If they are invalid then it hits the boolean over to true and cancels the addition.
+        if(invalid)
+        {
+            JOptionPane.showMessageDialog(null, "Warning! First/Last Name invalid! Please make sure you use valid characters\n(e.g. A-Z, ', -,). And make sure the names are more than two characters long.");
             return;
         }
         //This takes the course thep person selected and pushes it through the StudentsDB class
@@ -1393,18 +1458,20 @@ public class managementSystemInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_lastNameBoxActionPerformed
 
     private void closeEditStudentsButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeEditStudentsButtonMouseClicked
-        // TODO add your handling code here:
+        
+        //Opens the edit student JFrame
         editStudentFrame.hide();        
     }//GEN-LAST:event_closeEditStudentsButtonMouseClicked
 
     private void addStudentCloseButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addStudentCloseButtonMouseClicked
-        // TODO add your handling code here:
+        
         //Hides the add Student Frame
         addStudentFrame.hide();               
     }//GEN-LAST:event_addStudentCloseButtonMouseClicked
 
     private void removeStudentButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_removeStudentButtonMouseClicked
-        // TODO add your handling code here:
+        
+        //Shows the remove student JFrame and sets it up
         removeStudentFrame.show();
         DefaultTableModel model = (DefaultTableModel) removeStudentTable.getModel();
         model.setRowCount(0);
@@ -1413,7 +1480,7 @@ public class managementSystemInterface extends javax.swing.JFrame {
 
     private void studentSearchRemoveButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_studentSearchRemoveButtonMouseClicked
         // TODO add your handling code here:
-        int count = 0;
+        //Checks if the user entered in integers
         if(!idEnterRemoveBox.getText().matches("[0-9]+"))
         {
             JOptionPane.showMessageDialog(null, "You have entered an invalid ID, please use valid integers!\nFor help consult the show students table.","Warning",JOptionPane.ERROR_MESSAGE);
@@ -1421,6 +1488,7 @@ public class managementSystemInterface extends javax.swing.JFrame {
         }                    
         try
         {  
+            //Checks if the ID entered is valid then puts the Student up on the JFrame table
             statement = conn.createStatement();
             boolean found = false;
             rs = statement.executeQuery("SELECT * FROM STUDENT");
@@ -1448,12 +1516,15 @@ public class managementSystemInterface extends javax.swing.JFrame {
 
     private void studentApplyRemoveButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_studentApplyRemoveButtonMouseClicked
         // TODO add your handling code here: 
+        //Checks if there is even anything in the JFrame table to remove
         DefaultTableModel model = (DefaultTableModel) removeStudentTable.getModel();
-        if(model.getValueAt(0, 0) == null)
+        if(model.getRowCount() == 0)
         {
             JOptionPane.showMessageDialog(null, "The table is empty, no student detected for removal!","Warning",JOptionPane.ERROR_MESSAGE);
             return;
         }
+        //Takes the student id then refers it to the
+        //Student Database removal method, asks the user to answer yes or no to confirm removal
         int id = (int) model.getValueAt(0, 0);        
         int yes_or_no = JOptionPane.showConfirmDialog(null, "Are you sure you want to remove this student?","Warning",JOptionPane.YES_NO_OPTION);
         if(yes_or_no == JOptionPane.YES_OPTION)
@@ -1466,11 +1537,13 @@ public class managementSystemInterface extends javax.swing.JFrame {
 
     private void studentRemoveCloseButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_studentRemoveCloseButtonMouseClicked
         // TODO add your handling code here:
+        //Hides the remove student frame (Closes it basically) 
         removeStudentFrame.hide();        
     }//GEN-LAST:event_studentRemoveCloseButtonMouseClicked
 
     private void showCoursesButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showCoursesButtonMouseClicked
         // TODO add your handling code here:
+        //Sets up the JFrame table for the Courses information
         showCoursesFrame.show();
         String[] columnNames = {"Course ID", "Course Name", "Credits", "Fees"};
         DefaultTableModel model = new DefaultTableModel(columnNames, 0);
@@ -1482,7 +1555,7 @@ public class managementSystemInterface extends javax.swing.JFrame {
         courseTable.getTableHeader().setReorderingAllowed(false);
         model = (DefaultTableModel) courseTable.getModel();
         model.setRowCount(0);
-        
+        //Putting all the course info into the table from the Course Database
         try
         {
             statement = conn.createStatement();
@@ -1501,6 +1574,8 @@ public class managementSystemInterface extends javax.swing.JFrame {
 
     private void showMajorsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showMajorsButtonActionPerformed
         // TODO add your handling code here:
+        
+        //Code to set up the table for the Major information
         String[] columnNames = {"Degree Name", "Major", "Courses Associated"};
         DefaultTableModel model = new DefaultTableModel(columnNames, 0);
         courseTable.setModel(model);                      
@@ -1509,7 +1584,7 @@ public class managementSystemInterface extends javax.swing.JFrame {
         
         model = (DefaultTableModel) courseTable.getModel();
         model.setRowCount(0);
-        
+        //Grabs all the stuff from the Major Database and puts it into the JFrame table
         try
         {
             statement = conn.createStatement();
@@ -1529,6 +1604,7 @@ public class managementSystemInterface extends javax.swing.JFrame {
 
     private void showFacultiesButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showFacultiesButtonMouseClicked
         // TODO add your handling code here:
+        //Adjusting the JFrame table for the Faculty information
         String[] columnNames = {"Faculty Name", "Location", "Courses Associated"};
         DefaultTableModel model = new DefaultTableModel(columnNames, 0);
         courseTable.setModel(model);                      
@@ -1538,7 +1614,7 @@ public class managementSystemInterface extends javax.swing.JFrame {
         
         model = (DefaultTableModel) courseTable.getModel();
         model.setRowCount(0);
-        
+        //Grabs all the faculty info and puts it into the JFrame table
         try
         {
             statement = conn.createStatement();
@@ -1559,7 +1635,7 @@ public class managementSystemInterface extends javax.swing.JFrame {
 
     private void returntoCoursesButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_returntoCoursesButtonMouseClicked
         // TODO add your handling code here:
-        
+        //Setting up the table to be fit for the Courses
         String[] columnNames = {"Course ID", "Course Name", "Credits", "Fees"};
         DefaultTableModel model = new DefaultTableModel(columnNames, 0);
         courseTable.setModel(model);        
@@ -1570,7 +1646,7 @@ public class managementSystemInterface extends javax.swing.JFrame {
         courseTable.getTableHeader().setReorderingAllowed(false);
         model = (DefaultTableModel) courseTable.getModel();
         model.setRowCount(0);
-        
+        //Grabs all the course information and puts it into the JFrame table
         try
         {
             statement = conn.createStatement();
@@ -1591,16 +1667,17 @@ public class managementSystemInterface extends javax.swing.JFrame {
 
     private void closeShowCoursesButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeShowCoursesButtonMouseClicked
         // TODO add your handling code here:
+        //Hides the show courses frame
         showCoursesFrame.hide();
     }//GEN-LAST:event_closeShowCoursesButtonMouseClicked
 
     private void showTeachersButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showTeachersButtonMouseClicked
         // TODO add your handling code here:
         showTeachersFrame.show();
-        
+        //Show the frame in code above and get the table model in the code below
         DefaultTableModel model = (DefaultTableModel) teacherTable.getModel();
         model.setRowCount(0);
-        
+        //This block of code shows all the teachers from the database
         try
         {
             statement = conn.createStatement();
@@ -1619,16 +1696,19 @@ public class managementSystemInterface extends javax.swing.JFrame {
 
     private void showTeachersCloseButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showTeachersCloseButtonMouseClicked
         // TODO add your handling code here:
+        //Closes the show teachers frame
         showTeachersFrame.dispose();
     }//GEN-LAST:event_showTeachersCloseButtonMouseClicked
 
     private void addTeacherButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addTeacherButtonMouseClicked
         // TODO add your handling code here:
+        //Resets all the labels, text boxes, etc and shows the frame
         addTeacherFrame.show();
         teacherFirstNameBox.setText("");
         teacherLastNameBox.setText("");
         teacherPositionCBox.setSelectedIndex(0);
         teacherCourseCBox.setSelectedIndex(0);
+        //Creates a new unique ID for the teacher
         int id = 10;
         try
         {
@@ -1643,7 +1723,7 @@ public class managementSystemInterface extends javax.swing.JFrame {
             System.out.println("Data not found.");
             e.printStackTrace();
         }
-        
+        //Pushes the new id to the label in the frame
         teacherIdLabel.setText("The new Teacher's automated ID is: " + id);
     }//GEN-LAST:event_addTeacherButtonMouseClicked
 
@@ -1653,6 +1733,7 @@ public class managementSystemInterface extends javax.swing.JFrame {
 
     private void applyAddTeacherButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_applyAddTeacherButtonMouseClicked
         // TODO add your handling code here:
+        //Auto creates a new ID for the new teacher
         int id = 10;
         try
         {
@@ -1664,21 +1745,29 @@ public class managementSystemInterface extends javax.swing.JFrame {
         }
         catch (SQLException e)
         {
-            
+            e.printStackTrace();
         }
+        //Reads in all the data from what the user types/selects
         String firstName = teacherFirstNameBox.getText();
         String lastName = teacherLastNameBox.getText();
         String position = (String)teacherPositionCBox.getSelectedItem();
         String course = (String) teacherCourseCBox.getSelectedItem();
-        //System.out.println(position +"\n"+course);
+        //Checks to see if the first and last names are valid, if not then it hits the invalid boolean and returns, making sure they aren't added
+        boolean invalid = false;
         if(!firstName.matches("[a-zA-Z\\s-']+") || firstName.length() < 2)
         {
-            return;
+            invalid = true;
         }
         if(!lastName.matches("[a-zA-Z\\s-']+") || lastName.length() < 2)
         {
+            invalid = true;
+        }
+        if(invalid)
+        {
+            JOptionPane.showMessageDialog(null, "Warning! First/Last Name invalid! Please make sure you use valid characters\n(e.g. A-Z, ', -,). And make sure the names are more than two characters long.");
             return;
         }
+        //This little bit of code adds the details inputted by the user to the addTeacher method to add it into the Teacher Database
         TeachersDB tDB = new TeachersDB();
         tDB.addTeacher(id, firstName, lastName, position, course);
         
@@ -1688,7 +1777,7 @@ public class managementSystemInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_applyAddTeacherButtonMouseClicked
 
     private void closeAddTeacherButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeAddTeacherButtonMouseClicked
-        // TODO add your handling code here:
+        // closes the Add Teacher Frame
         addTeacherFrame.hide();
     }//GEN-LAST:event_closeAddTeacherButtonMouseClicked
 
@@ -1697,15 +1786,17 @@ public class managementSystemInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_addStudentCloseButtonActionPerformed
 
     private void removeTeacherButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_removeTeacherButtonMouseClicked
-        // TODO add your handling code here:
         
+        //Shows the remove teacher frame
         removeTeacherFrame.show();
     }//GEN-LAST:event_removeTeacherButtonMouseClicked
 
     private void removeTeacherIDSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_removeTeacherIDSearchMouseClicked
         // TODO add your handling code here:
+        //This method checks that you entered in numbers for the ID Teacher Search and throws it into a table if valid
         if(!teacherIdBox.getText().matches("[0-9]+"))
         {
+            JOptionPane.showMessageDialog(null, "Warning! Please enter a valid integer (0-9)!");
             return;
         }            
         DefaultTableModel model = (DefaultTableModel) removeTeacherTable.getModel();
@@ -1714,14 +1805,22 @@ public class managementSystemInterface extends javax.swing.JFrame {
                 
         try
         {
+            //This block of code looks for the teacher's ID
             statement = conn.createStatement();
+            boolean found = false;
             rs = statement.executeQuery("SELECT * FROM TEACHER");
             while(rs.next())
             {
                 if(Integer.parseInt(teacherIdBox.getText()) == rs.getInt("ID"))
                 {
                     model.addRow(new Object[]{(rs.getInt("ID")), (rs.getString("FIRST_NAME")), (rs.getString("LAST_NAME"))});
+                    found = true;
                 }
+            }
+            //If it isn't found then advises the user to check the teacher table for a guide on valid ID's
+            if(!found)
+            {
+                JOptionPane.showMessageDialog(null, "Warning! Invalid ID entered. Refer to the Show Teachers Window for help on valid ID's.");
             }
         }
         catch(SQLException e) 
@@ -1735,13 +1834,16 @@ public class managementSystemInterface extends javax.swing.JFrame {
 
     private void removeTeacherRemovalButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_removeTeacherRemovalButtonMouseClicked
         // TODO add your handling code here:
+        
         DefaultTableModel model = (DefaultTableModel) removeTeacherTable.getModel();
-        if(model.getValueAt(0, 0) == null)
+        //Checks the table to see if there is anything there at all to remove
+        if(model.getRowCount() == 0)
         {
             JOptionPane.showMessageDialog(null, "The table is empty, no teacher detected for removal!","Warning",JOptionPane.ERROR_MESSAGE);
             return;
         }
-        int id = (int) model.getValueAt(0, 0);        
+        int id = (int) model.getValueAt(0, 0);   
+        //Yes or No box pops up, if yes is selected then the selected Teacher is removed via the removeTeacher method
         int yes_or_no = JOptionPane.showConfirmDialog(null, "Are you sure you want to remove this teacher?","Warning",JOptionPane.YES_NO_OPTION);
         if(yes_or_no == JOptionPane.YES_OPTION)
         {
@@ -1751,11 +1853,18 @@ public class managementSystemInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_removeTeacherRemovalButtonMouseClicked
 
     private void closeManagementSystemButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeManagementSystemButtonMouseClicked
-        // TODO add your handling code here:
+        // Closes the entire program
         this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+        DBManager db = new DBManager();
+        db.closeConnections();
         
         
     }//GEN-LAST:event_closeManagementSystemButtonMouseClicked
+
+    private void removeTeacherCloseButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_removeTeacherCloseButtonMouseClicked
+        // Closes the remove teacher JFrame
+        removeTeacherFrame.hide();
+    }//GEN-LAST:event_removeTeacherCloseButtonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -1856,6 +1965,11 @@ public class managementSystemInterface extends javax.swing.JFrame {
     private javax.swing.JButton showFacultiesButton;
     private javax.swing.JButton showMajorsButton;
     private javax.swing.JButton showStudents;
+    private javax.swing.JLabel showTeacherInfoLabel01;
+    private javax.swing.JLabel showTeacherInfoLabel02;
+    private javax.swing.JLabel showTeacherInfoLabel03;
+    private javax.swing.JLabel showTeacherInfoLabel04;
+    private javax.swing.JLabel showTeacherInfoLabel05;
     private javax.swing.JButton showTeachersButton;
     private javax.swing.JButton showTeachersCloseButton;
     private javax.swing.JFrame showTeachersFrame;

@@ -19,12 +19,12 @@ public class CoursesDB {
     private final Connection conn;
     private Statement statement;
     private ResultSet rs;
-    
+    //Sets up the connection to the DBManager
     public CoursesDB() {
         dbManager = new DBManager();
         conn = dbManager.getConnection();
     }
-    
+    //Creates the courses and checks if it's already created too
     public void createCoursesTable()
     {
         try
@@ -58,7 +58,7 @@ public class CoursesDB {
         }
         catch(SQLException e)
         {
-            System.out.println("Invalid statements.");
+            System.out.println("Error inserting into or creating tables.");
         }
     }
     
