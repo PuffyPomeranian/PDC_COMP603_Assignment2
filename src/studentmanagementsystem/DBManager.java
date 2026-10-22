@@ -12,13 +12,13 @@ import java.sql.Statement;
 
 /**
  *
- * @author Playtech
+ * @author Samuel Pearson 25302305
  */
 public final class DBManager {
     //Made sure this will run natively without having to do setup
     private static final String USER_NAME = "pdc";
     private static final String PASSWORD = "pdc"; 
-    private static final String URL = "jdbc:derby:StudentManagementSystemDB;create = true";
+    private static final String URL = "jdbc:derby:StudentManagementSystemDB;create=true";
     
     Connection conn;
     //Sets up the connection constructor
