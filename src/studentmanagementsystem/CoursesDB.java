@@ -11,7 +11,7 @@ import java.sql.SQLException;
 
 /**
  *
- * @author Playtech
+ * @author Samuel Pearson 25302305
  */
 public class CoursesDB {
     

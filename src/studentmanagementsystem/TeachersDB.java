@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Playtech
+ * @author Samuel Pearson 25302305
  */
 public class TeachersDB {
     

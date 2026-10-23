@@ -11,7 +11,7 @@ import java.sql.Statement;
 
 /**
  *
- * @author Playtech
+ * @author Samuel Pearson 25302305
  */
 public class FacultiesDB {
     

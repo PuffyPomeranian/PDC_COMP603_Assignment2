@@ -14,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author Playtech
+ * @author Samuel Pearson 25302305
  */
 public class managementSystemInterface extends javax.swing.JFrame {
     
@@ -1789,6 +1789,10 @@ public class managementSystemInterface extends javax.swing.JFrame {
         
         //Shows the remove teacher frame
         removeTeacherFrame.show();
+        teacherIdBox.setText("");
+        DefaultTableModel model = (DefaultTableModel) removeTeacherTable.getModel();
+        model.setRowCount(0);
+        
     }//GEN-LAST:event_removeTeacherButtonMouseClicked
 
     private void removeTeacherIDSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_removeTeacherIDSearchMouseClicked
